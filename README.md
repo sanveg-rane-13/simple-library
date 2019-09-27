@@ -1,24 +1,14 @@
-# README
+# Simple Library Management System
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple library manager to make books accessible to students
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Features to implement:
+* Authentication
+* Session
+* Google auth
+* User types - Admin / Students / Librarians
+* Admin features
+* Librarian features
+* Student features
+* Book reservation mechanism
+* Deploy on heroku
