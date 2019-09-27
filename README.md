@@ -2,7 +2,13 @@
 
 Simple library manager to make books accessible to students
 
-Features to implement:
+##### Run project in local:
+  - Clone the repo
+  - cd into simple-library
+  - run command - rake db:migrate
+  - run command - rails s
+
+##### Features to implement:
 * Authentication
 * Session
 * Google auth
