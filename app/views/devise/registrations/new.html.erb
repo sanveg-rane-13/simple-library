@@ -1,9 +1,7 @@
 <!-- Default registration page by devise -->
 
-<h2>Sign up</h2>
-
 <div class="row">
-  <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+  <div class="col-xs-12 col-sm-6 col-sm-offset-4">
     <%= devise_error_messages! %>
     <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <%= f.text_field :name %>
