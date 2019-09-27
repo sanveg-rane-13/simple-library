@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    @currentUser = current_user.id        # access current user object after authentication
+    @current_user = current_user        # access current user object after authentication
   end
 
   def help

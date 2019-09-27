@@ -27,6 +27,8 @@
     input.type = 'hidden';
     input.name = 'user[librarian]';
     input.value = true;
+    input.name = 'user[pending_approval]';
+    input.value = true;
     $form.appendChild(input);
   });
   document.getElementById('student_submit').addEventListener('click', () => {
