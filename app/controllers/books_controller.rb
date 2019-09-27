@@ -5,6 +5,7 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.all
+    @current_user = current_user
   end
 
   # GET /books/1
@@ -72,3 +73,4 @@ class BooksController < ApplicationController
       params.require(:book).permit(:isbn, :title, :author, :subject, :is_special, :summary, :image_front_cover, :edition, :published, :language)
     end
 end
+
