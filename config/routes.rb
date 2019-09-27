@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get "authentication/new"
-  get "authentication/edit"
+  resources :libraries
+  resources :books
+  get 'authentication/new'
+  get 'authentication/edit'
   get "static_pages/home"
   get "static_pages/help"
   get "users/new"
