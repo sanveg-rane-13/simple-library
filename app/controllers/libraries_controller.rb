@@ -5,6 +5,7 @@ class LibrariesController < ApplicationController
   # GET /libraries.json
   def index
     @libraries = Library.all
+    @current_user = current_user
   end
 
   # GET /libraries/1
