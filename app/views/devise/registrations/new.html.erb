@@ -27,10 +27,18 @@
     input.type = 'hidden';
     input.name = 'user[librarian]';
     input.value = true;
+    $form.appendChild(input);
+  });
+
+  // Setting pending approval as false by default to new librarian
+  document.getElementById('librarian_submit').addEventListener('click', () => {
+    let input = document.createElement("input");
+    input.type = 'hidden';
     input.name = 'user[pending_approval]';
     input.value = true;
     $form.appendChild(input);
   });
+
   document.getElementById('student_submit').addEventListener('click', () => {
     let input = document.createElement("input");
     input.type = 'hidden';
