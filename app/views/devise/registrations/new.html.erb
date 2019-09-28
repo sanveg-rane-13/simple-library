@@ -1,9 +1,10 @@
 <!-- Default registration page by devise -->
 
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-sm-offset-4">
+<div class="card auth-form col-md-6">
+  <div class="container" style="padding: 2%">
     <!-- <%= devise_error_messages! %> -->
-    <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name),
+    label_col: "col-sm-3", control_col: "col-sm-6") do |f| %>
     <%= f.text_field :name, autofocus: true, autocomplete: "name"  %>
     <%= f.email_field :email, autocomplete: "email" %>
     <%= f.password_field :password %>

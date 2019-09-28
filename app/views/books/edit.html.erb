@@ -1,6 +1,6 @@
-<h1>Editing Book</h1>
+<h3>Editing Book</h3>
 
-<%= render 'form', book: @book %>
+<%= render 'form', book: @book, form_url: book_path(@book), submit_label: 'Update Book' %>
 
-<%= link_to 'Show', @book %> |
+<!-- <%= link_to 'Show', @book %> | -->
 <%= link_to 'Back', books_path %>

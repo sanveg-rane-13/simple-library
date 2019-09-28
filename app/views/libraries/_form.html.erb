@@ -1,42 +1,17 @@
-<%= form_with(model: library, local: true) do |form| %>
-  <% if library.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(library.errors.count, "error") %> prohibited this library from being saved:</h2>
+<div class="card">
+  <div class="container" style="padding: 2%">
 
-      <ul>
-        <% library.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <%= bootstrap_form_for(@library, 
+            url: form_url, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-6") do |f| %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= f.text_field :name, autofocus: true, autocomplete: "name"  %>
+    <%= f.text_field :university, autocomplete: "university"  %>
+    <%= f.text_field :location, autocomplete: "location"  %>
+    <%= f.number_field :max_borrow_days %>
+    <%= f.number_field :overdue_fine %>
+
+    <br>
+    <%= f.primary submit_label %>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :university %>
-    <%= form.text_field :university %>
-  </div>
-
-  <div class="field">
-    <%= form.label :location %>
-    <%= form.text_field :location %>
-  </div>
-
-  <div class="field">
-    <%= form.label :max_borrow_days %>
-    <%= form.number_field :max_borrow_days %>
-  </div>
-
-  <div class="field">
-    <%= form.label :overdue_fine %>
-    <%= form.number_field :overdue_fine %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

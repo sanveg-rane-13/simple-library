@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_27_215030) do
+ActiveRecord::Schema.define(version: 2019_09_28_041305) do
 
   create_table "books", force: :cascade do |t|
     t.integer "isbn"
@@ -47,6 +47,21 @@ ActiveRecord::Schema.define(version: 2019_09_27_215030) do
     t.index ["library_id"], name: "index_library_books_on_library_id"
   end
 
+  create_table "requests", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.boolean "special_approval"
+    t.datetime "hold"
+    t.boolean "bookmark"
+    t.integer "library_id"
+    t.integer "student_id"
+    t.integer "book_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_requests_on_book_id"
+    t.index ["student_id"], name: "index_requests_on_student_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -61,6 +76,7 @@ ActiveRecord::Schema.define(version: 2019_09_27_215030) do
     t.boolean "admin", default: false
     t.boolean "student", default: false
     t.boolean "librarian", default: false
+    t.integer "library_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
