@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_09_28_041305) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+    t.string "study_level"
     t.string "university"
     t.boolean "pending_approval", default: false
     t.boolean "admin", default: false
