@@ -6,6 +6,13 @@ class BooksController < ApplicationController
   def index
     @books = Book.all
     @current_user = current_user
+    if params[:search].blank?
+      @books = Book.all
+    else
+      @books = Book.where(['title LIKE ?', "%#{params[:title]}%"])
+                    .where(['author LIKE ?', "%#{params[:author]}%"])
+                    .where(['published LIKE ?', "%#{params[:published]}%"])
+    end
   end
 
   # GET /books/1
