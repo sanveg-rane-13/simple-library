@@ -4,11 +4,11 @@
     <%= bootstrap_form_for(@library, 
             url: form_url, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-6") do |f| %>
 
-    <%= f.text_field :name, autofocus: true, autocomplete: "name"  %>
-    <%= f.text_field :university, autocomplete: "university"  %>
+    <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true  %>
+    <%= f.text_field :university, autocomplete: "university", required: true  %>
     <%= f.text_field :location, autocomplete: "location"  %>
-    <%= f.number_field :max_borrow_days %>
-    <%= f.number_field :overdue_fine %>
+    <%= f.number_field :max_borrow_days, required: true %>
+    <%= f.number_field :overdue_fine, required: true %>
 
     <br>
     <%= f.primary submit_label %>

@@ -29,7 +29,7 @@ class LibrariesController < ApplicationController
 
     respond_to do |format|
       if @library.save
-        format.html { redirect_to @library, notice: 'Library was successfully created.' }
+        format.html { redirect_to @library, notice: "Library was successfully created." }
         format.json { render :show, status: :created, location: @library }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class LibrariesController < ApplicationController
   def update
     respond_to do |format|
       if @library.update(library_params)
-        format.html { redirect_to @library, notice: 'Library was successfully updated.' }
+        format.html { redirect_to @library, notice: "Library was successfully updated." }
         format.json { render :show, status: :ok, location: @library }
       else
         format.html { render :edit }
@@ -57,19 +57,26 @@ class LibrariesController < ApplicationController
   def destroy
     @library.destroy
     respond_to do |format|
-      format.html { redirect_to libraries_url, notice: 'Library was successfully destroyed.' }
+      format.html { redirect_to libraries_url, notice: "Library was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_library
-      @library = Library.find(params[:id])
-    end
+  # GET /libraries/1/add_book
+  def add_book
+    @library = Library.find(params[:library_id])
+    @book_names = Book.all.collect { |b| b.title + " - " + b.isbn.to_s }
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def library_params
-      params.require(:library).permit(:name, :university, :location, :max_borrow_days, :overdue_fine)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_library
+    @library = Library.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def library_params
+    params.require(:library).permit(:name, :university, :location, :max_borrow_days, :overdue_fine, :library_books)
+  end
 end
