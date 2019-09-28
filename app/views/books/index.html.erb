@@ -1,20 +1,37 @@
+<h1>Books</h1>
 
+<br><br>
 
+<div class="row">
+  <div class="col-sm-1"></div>
+  <%= form_tag books_path, method: 'get', :class => "col-sm-11" do %>
+    <input type='hidden' name='search' value='true'>
+    <div class="col-sm-3">
+      <input type='string' class="form-control" placeholder="Title" name='title' value="<%= params[:title]%>">
+    </div>
+    <div class="col-sm-3">
+      <input type='string' class="form-control" placeholder="Author" name='author' value="<%=params[:author]%>">
+    </div>
+    <div class="col-sm-3">
+      <input type='date' class="form-control" placeholder="Published" name='published' value="<%=params[:published]%>">
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary">Search</button>
+    </div>
+  <% end %>
+</div>
 
-
-
-
-<h3>Books List</h3>
+<br><br>
 
 <table class="table">
-
   <thead>
     <tr>
       <th>Title</th>
       <th>Author</th>
       <th>Subject</th>
-      <th>Isbn</th>
-      <th>Is special</th>
+      <th>ISBN</th>
+      <th>Special</th>
+      <th>Summary</th>
       <th>Edition</th>
       <th>Publised</th>
       <th>Language</th>
@@ -31,44 +48,25 @@
   </thead>
   <tbody>
     <% @books.each do |book| %>
-    <tr>
-      <td><%= book.title %></td>
-      <td><%= book.author %></td>
-      <td><%= book.subject %></td>
-      <td><%= book.isbn %></td>
-      <td><%= book.is_special %></td>
-      <td><%= book.edition %></td>
-      <td><%= book.published %></td>
-      <td><%= book.language %></td>
-
-      <% if not @current_user.student? %>
-      <td><%= link_to 'Show', book %></td>
-      <td><%= link_to 'Edit', edit_book_path(book) %></td>
-      <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% end %>
-    </tr>
+      <tr>
+        <td><%= link_to book.title, book_path(book) %></td>
+        <td><%= book.author %></td>
+        <td><%= book.subject %></td>
+        <td><%= book.isbn %></td>
+        <td><%= book.is_special %></td>
+        <td><%= book.summary %></td>
+        <td><%= book.edition %></td>
+        <td><%= book.published %></td>
+        <td><%= book.language %></td>
+        <% if not @current_user.student? %>
+          <td><%= link_to 'Show', book %></td>
+          <td><%= link_to 'Edit', edit_book_path(book) %></td>
+          <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
     <% end %>
   </tbody>
-</table
+</table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<<<<<<< HEAD
-
-=======
 <br>
 <%= link_to 'Home', "/" %>
->>>>>>> d5a09595e54ae6864eaddb225d870ecf356e9016
