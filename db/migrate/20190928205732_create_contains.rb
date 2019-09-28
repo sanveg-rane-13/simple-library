@@ -1,6 +1,6 @@
-class CreateLibraryBooks < ActiveRecord::Migration[6.0]
+class CreateContains < ActiveRecord::Migration[6.0]
   def change
-    create_table :library_books do |t|
+    create_table :contains do |t|
       t.integer :count
 
       t.belongs_to :library
