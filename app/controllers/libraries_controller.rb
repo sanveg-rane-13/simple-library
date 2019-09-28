@@ -62,12 +62,6 @@ class LibrariesController < ApplicationController
     end
   end
 
-  # GET /libraries/1/add_book
-  def add_book
-    @library = Library.find(params[:library_id])
-    @book_names = Book.all.collect { |b| b.title + " - " + b.isbn.to_s }
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -77,6 +71,6 @@ class LibrariesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def library_params
-    params.require(:library).permit(:name, :university, :location, :max_borrow_days, :overdue_fine, :library_books)
+    params.require(:library).permit(:name, :university, :location, :max_borrow_days, :overdue_fine)
   end
 end

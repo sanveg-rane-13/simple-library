@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_28_041305) do
+ActiveRecord::Schema.define(version: 2019_09_28_205732) do
 
   create_table "books", force: :cascade do |t|
     t.integer "isbn"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 2019_09_28_041305) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "contains", force: :cascade do |t|
+    t.integer "count"
+    t.integer "library_id"
+    t.integer "book_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_contains_on_book_id"
+    t.index ["library_id"], name: "index_contains_on_library_id"
+  end
+
   create_table "libraries", force: :cascade do |t|
     t.string "name"
     t.string "university"
@@ -35,16 +45,6 @@ ActiveRecord::Schema.define(version: 2019_09_28_041305) do
     t.integer "overdue_fine"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "library_books", force: :cascade do |t|
-    t.integer "count"
-    t.integer "library_id"
-    t.integer "book_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_library_books_on_book_id"
-    t.index ["library_id"], name: "index_library_books_on_library_id"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_09_28_041305) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+    t.string "study_level"
     t.string "university"
     t.boolean "pending_approval", default: false
     t.boolean "admin", default: false
