@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Libraries</h1>
+<h3>Libraries</h3>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -16,24 +16,23 @@
 
   <tbody>
     <% @libraries.each do |library| %>
-      <tr>
-        <td><%= library.name %></td>
-        <td><%= library.university %></td>
-        <td><%= library.location %></td>
-        <td><%= library.max_borrow_days %></td>
-        <td><%= library.overdue_fine %></td>
+    <tr>
+      <td><%= library.name %></td>
+      <td><%= library.university %></td>
+      <td><%= library.location %></td>
+      <td><%= library.max_borrow_days %></td>
+      <td><%= library.overdue_fine %></td>
 
-        <% if not @current_user.student? %>
-        <td><%= link_to 'Show', library %></td>
-        <td><%= link_to 'Edit', edit_library_path(library) %></td>
-        <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
+      <% if not @current_user.student? %>
+      <td><%= link_to 'Show', library %></td>
+      <td><%= link_to 'Edit', edit_library_path(library) %></td>
+      <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
 
-      </tr>
+    </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-
+<%= link_to 'Home', "/" %>

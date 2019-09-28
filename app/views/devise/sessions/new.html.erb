@@ -1,8 +1,9 @@
 <!-- Default sign-in page rendered by devise -->
 
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-sm-offset-4">
-    <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name), :class => "form-inline") do |f| %>
+<div class="card auth-form col-md-6">
+  <div class="container" style="padding: 2%">
+    <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name), 
+    label_col: "col-sm-3", control_col: "col-sm-6") do |f| %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
     <%= f.password_field :password %>
 
