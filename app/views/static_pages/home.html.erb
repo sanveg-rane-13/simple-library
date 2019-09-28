@@ -1,5 +1,7 @@
 <h2>Welcome to Simple-Library</h2>
 
+<p>Welcome <%= @current_user.name%>, please select an action to continue</p>
+
 <% if @current_user.student? %>
 <ul class="list-group">
     <!-- List of libraries -->
@@ -16,7 +18,24 @@
 
 <% if @current_user.librarian? %>
 <ul class="list-group">
-    <!-- List of libraries -->
-    <li class="list-group-item">View Libraries</li>
+    <!-- View Books (edit / remove on book view)-->
+    <li class="list-group-item">View all books</li>
+    <!-- Add Books -->
+    <li class="list-group-item">Add new book</li>
+    <!-- View Special approvals -->
+    <li class="list-group-item">Approve special books</li>
+    <!-- View overdue students and fines -->
+    <li class="list-group-item">View Overdues and Fines</li>
+    <!-- View Hold requests-->
+    <li class="list-group-item">View hold requests</li>
+</ul>
+<% end %>
+
+<% if @current_user.admin? %>
+<ul class="list-group">
+    <!-- View Libraries -->
+    <li class="list-group-item"><%= link_to 'Add New Library', new_library_path %></li>
+    <!-- Add Books -->
+    <li class="list-group-item"><%= link_to 'Add New Book', new_book_path %></li>
 </ul>
 <% end %>

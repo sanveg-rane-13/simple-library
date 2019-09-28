@@ -1,5 +1,5 @@
-<h1>New Book</h1>
+<h3>Add New Book</h3>
 
-<%= render 'form', book: @book %>
+<%= render 'form', book: @book, form_url: books_path, submit_label: 'Add Book' %>
 
-<%= link_to 'Back', books_path %>
+<%= link_to 'Home', '/' %>
