@@ -31,9 +31,13 @@
 
 <% if @current_user.admin? %>
 <ul class="list-group">
-    <!-- View Libraries -->
+    <!-- View all libraries -->
+    <li class="list-group-item"><%= link_to 'View Libraries', libraries_path %></li>
+    <!-- Add Libraries -->
     <li class="list-group-item"><%= link_to 'Add New Library', new_library_path %></li>
     <!-- Add Books -->
     <li class="list-group-item"><%= link_to 'Add New Book', new_book_path %></li>
+    <!-- Add Book to Library -->
+    <!-- <li class="list-group-item"><%= link_to 'Add Book to Library', new_book_path %></li> -->
 </ul>
 <% end %>

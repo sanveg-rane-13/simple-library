@@ -1,0 +1,19 @@
+<h3>Add Book to <%= @library.name %></h3>
+
+<div class="card">
+    <div class="container" style="padding: 2%">
+        <%= bootstrap_form_for(@library, 
+            url: library_path(@library), layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-6") do |f| %>
+
+        <%= f.fields_for :library_books do |lb| -%>
+
+
+        <%= lb.select :book_ids, @book_names, label: "Select Book" %>
+        <%= lb.number_field :count, required: true %>
+        
+        <% end %>
+        <br>
+        <%= f.primary "Add Book" %>
+        <% end %>
+    </div>
+</div>

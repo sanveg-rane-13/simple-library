@@ -4,18 +4,20 @@
     <%= bootstrap_form_for(@book, 
       url: form_url, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-6") do |f| %>
 
-    <%= f.text_field :title, autofocus: true, autocomplete: "title"  %>
-    <%= f.text_field :isbn, autocomplete: "isbn"  %>
+    <%= f.text_field :title, autofocus: true, autocomplete: "title", :required => true  %>
+    <%= f.number_field :isbn, required: true  %>
 
-    <%= f.text_field :subject, autocomplete: "subject"  %>
+    <%= f.text_field :subject, autocomplete: "subject" , :required => true %>
     <%= f.text_area :summary %>
 
     <%= f.text_field :language, autocomplete: "language"  %>
-    <%= f.text_field :author, autocomplete: "author"  %>
+    <%= f.text_field :author, autocomplete: "author", :required => true  %>
     <%= f.text_field :edition, autocomplete: "edition"  %>
 
     <%= f.date_select :published %>
-    <%= f.check_box :is_special %>
+    <%= f.form_group do %>
+    <%= f.check_box :is_special, label: "Special book" %>
+    <% end %>
 
     <br>
     <%= f.primary submit_label %>
