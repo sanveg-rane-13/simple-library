@@ -73,3 +73,4 @@ yarn-debug.log*
 !/storage/.keep
 
 Gemfile.lock
+.DS_Store

@@ -35,7 +35,8 @@ class RegistrationsController < Devise::RegistrationsController
         :pending_approval,
         :admin,
         :student,
-        :librarian
+        :librarian,
+        :library_id
       )
   end
 end
