@@ -1,0 +1,27 @@
+<h3>Pending approvals list</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Library</th>
+            <th colspan="2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @pending_users_list.each do |librarian| %>
+        <tr>
+            <td><%= librarian.name %></td>
+            <td><%= librarian.email %></td>
+
+            <% if @current_user.admin? %>
+            <td><%= link_to 'Approve', approve_librarian_static_page_url(librarian), method: :put %></td>
+            <% end %>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<br>
+<%= link_to 'Home', "/" %>
