@@ -23,6 +23,7 @@ class BooksController < ApplicationController
   # GET /books/new
   def new
     @book = Book.new
+
   end
 
   # GET /books/1/edit
@@ -33,7 +34,7 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
-
+    
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
@@ -42,6 +43,8 @@ class BooksController < ApplicationController
         format.html { render :new }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
+    
+
     end
   end
 
@@ -68,6 +71,7 @@ class BooksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

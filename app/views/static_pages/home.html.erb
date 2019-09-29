@@ -4,28 +4,37 @@
 
 <% if @current_user.student? %>
 <ul class="list-group">
-    <!-- List of libraries -->
-    <li class="list-group-item"><%= link_to 'View Libraries', '/libraries' %></li>
-    <!-- List of books rented -->
-    <li class="list-group-item">Manage borrowed books</li>
-    <!-- Search books -->
-    <li class="list-group-item"><%= link_to 'Search Books', '/books' %></li>
+    <% if @current_user.university == nil%>
+        <h2> Please Register Your University in <%= link_to 'Edit Profile', '/users/edit' %></li></h2>
+    <% else %>
 
+        <!-- List of libraries -->
+        <li class="list-group-item"><%= link_to 'View Libraries', '/libraries' %></li>
+        <!-- List of books rented -->
+        <li class="list-group-item">Manage borrowed books</li>
+        <!-- Search books -->
+        <li class="list-group-item"><%= link_to 'Search Books', '/books' %></li>
+    <% end %>
 </ul>
 <% end %>
 
 <% if @current_user.librarian? %>
 <ul class="list-group">
-    <!-- View Books (edit / remove on book view)-->
-    <li class="list-group-item">View all books</li>
-    <!-- Add Books -->
-    <li class="list-group-item">Add new book</li>
-    <!-- View Special approvals -->
-    <li class="list-group-item">Approve special books</li>
-    <!-- View overdue students and fines -->
-    <li class="list-group-item">View Overdues and Fines</li>
-    <!-- View Hold requests-->
-    <li class="list-group-item">View hold requests</li>
+    <% if @current_user.university == nil%>
+        <h2> Please Register Your Library in <%= link_to 'Edit Profile', '/users/edit' %></li></h2>
+    <% else %>
+        <!-- View Books (edit / remove on book view)-->
+        <li class="list-group-item">View all books</li>
+        <!-- Add Books -->
+        <li class="list-group-item"><%= link_to 'Add Books', '/books/new' %></li>
+        <li class="list-group-item">
+        <!-- View Special approvals -->
+        <li class="list-group-item">Approve special books</li>
+        <!-- View overdue students and fines -->
+        <li class="list-group-item">View Overdues and Fines</li>
+        <!-- View Hold requests-->
+        <li class="list-group-item">View hold requests</li>
+    <% end %>
 </ul>
 <% end %>
 
