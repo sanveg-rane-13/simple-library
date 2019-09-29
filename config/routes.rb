@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :requests
+  resources :contains
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
 
   resources :libraries
@@ -11,10 +13,6 @@ Rails.application.routes.draw do
   get "static_pages/help"
 
   get "users/new"
-
-  resources :libraries do
-    get "add_book"
-  end
 
   devise_for :users, controllers: { registrations: "registrations" }
 
