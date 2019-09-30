@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Libraries</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>University</th>
+            <th>Location</th>
+            <th colspan="6"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @libraries.each do |library| %>
+        <tr>
+            <td><%= library.name %></td>
+            <td><%= library.university %></td>
+            <td><%= library.location %></td>
+
+            <td><%= link_to 'Details', library %></td>
+            <td><%= link_to 'View Books', lib_books_library_path(library)%></td>
+            <% if not @current_user.student? %>
+            <td><%= link_to 'Edit', edit_library_path(library) %></td>
+            <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<br>
+<%= link_to 'Home', "/" %>

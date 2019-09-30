@@ -3,11 +3,11 @@
 <% if @current_user.student? %>
 <ul class="list-group">
     <% if @current_user.university == nil%>
-    <h2> Please Register Your University in <%= link_to 'Edit Profile', '/users/edit' %></h2>
+    <p> Please Register Your University in <%= link_to 'Edit Profile', '/users/edit' %></p>
     <% else %>
     <p>Welcome <%= @current_user.name%>, please select an action to continue</p>
     <!-- List of libraries -->
-    <li class="list-group-item"><%= link_to 'View Libraries', '/libraries' %></li>
+    <li class="list-group-item"><%= link_to 'View Libraries', user_libs_path %></li>
     <!-- List of books rented -->
     <li class="list-group-item">Manage borrowed books</li>
     <!-- Search books -->
@@ -46,9 +46,11 @@
 <% if @current_user.admin? %>
 <ul class="list-group">
     <!-- View all libraries -->
-    <li class="list-group-item"><%= link_to 'View Libraries', libraries_path %></li>
+    <li class="list-group-item"><%= link_to 'View Libraries', user_libs_path %></li>
     <!-- Add Libraries -->
     <li class="list-group-item"><%= link_to 'Add New Library', new_library_path %></li>
+    <!-- View all libraries -->
+    <li class="list-group-item"><%= link_to 'View Books', books_path %></li>
     <!-- Add Books -->
     <li class="list-group-item"><%= link_to 'Add New Book', new_book_path %></li>
     <!-- Add Book to Library -->

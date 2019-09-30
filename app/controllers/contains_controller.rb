@@ -1,6 +1,8 @@
 class ContainsController < ApplicationController
   before_action :set_contain, only: [:show, :edit, :update, :destroy]
 
+  # TODO: directly add book to library link from lib_books
+
   # GET /contains
   # GET /contains.json
   def index
@@ -36,7 +38,7 @@ class ContainsController < ApplicationController
     @contain = Contain.new(contain_params)
     respond_to do |format|
       if @contain.save
-        format.html { redirect_to @contain, notice: "Success!" }
+        format.html { redirect_to new_contain_path, notice: "Success!" }
         format.json { render :show, status: :created, location: @contain }
       else
         format.html { render :new }
@@ -50,7 +52,7 @@ class ContainsController < ApplicationController
   def update
     respond_to do |format|
       if @contain.update(contain_params)
-        format.html { redirect_to @contain, notice: "Success!" }
+        format.html { redirect_to lib_books_library_path(@contain.library_id), notice: "Book count updated!" }
         format.json { render :show, status: :ok, location: @contain }
       else
         format.html { render :edit }
@@ -62,11 +64,19 @@ class ContainsController < ApplicationController
   # DELETE /contains/1
   # DELETE /contains/1.json
   def destroy
+    lib_id = @contain.library_id
     @contain.destroy
     respond_to do |format|
-      format.html { redirect_to contains_url, notice: "Contain was successfully destroyed." }
+      format.html { redirect_to lib_books_library_path(lib_id), notice: "Book was successfully removed from library." }
       format.json { head :no_content }
     end
+  end
+
+  #GET
+  def library_books
+    lib_id = params[:library_id]
+    lib_name = Library.get_lib_name(lib_id)
+    lib_books = Contain.get_books_of_lib(lib_id)
   end
 
   private
