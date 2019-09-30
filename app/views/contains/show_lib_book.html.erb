@@ -1,0 +1,72 @@
+<h3><%= @book_accessed.title%></h3>
+<hr>
+<br><br>
+
+<div class="container-fluid">
+    <div class="book-summ col-md-5">
+        <div class="card img-details">
+            Book cover image goes here
+        </div>
+        <div class="card summary-details">
+            <p><%=@book_accessed.summary%></p>
+        </div>
+        <div class="book-actions">
+            <ul class="list-group list-group-horizontal">
+                <%if @show_checkout%><li class="list-group-item btn">
+                    <%= link_to 'Checkout', lib_books_library_path(@library_accessed)%></li><%end%>
+                <%if @show_hold%><li class="list-group-item btn">
+                    <%= link_to 'Hold', lib_books_library_path(@library_accessed)%></li><%end%>
+                <%if @show_return%><li class="list-group-item btn">
+                    <%= link_to 'Return', lib_books_library_path(@library_accessed)%></li><%end%>
+                <%if @show_cancel_hold%><li class="list-group-item btn">
+                    <%= link_to 'Cancel Hold', lib_books_library_path(@library_accessed)%></li><%end%>
+
+                <%if !@bookmarked%><li class="list-group-item btn">
+                    <%= link_to 'Bookmark', lib_books_library_path(@library_accessed)%></li>
+                <% else%><li class="list-group-item btn">
+                    <%= link_to 'Remove Bookmark', lib_books_library_path(@library_accessed)%></li>
+                <%end%>
+            </ul>
+            <br>
+            <td><%= link_to 'Back', lib_books_library_path(@library_accessed)%></td>
+        </div>
+
+    </div>
+
+
+    <div class="card book-details col-md-5">
+        <h5>Book Details:</h5>
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <th>Name:</th>
+                    <td><%= @book_accessed.title%></td>
+                </tr>
+                <tr>
+                    <th>ISBN:</th>
+                    <td><%= @book_accessed.isbn%></td>
+                </tr>
+                <tr>
+                    <th>Subject:</th>
+                    <td><%= @book_accessed.subject%></td>
+                </tr>
+                <tr>
+                    <th>Author:</th>
+                    <td><%= @book_accessed.author%></td>
+                </tr>
+                <tr>
+                    <th>Edition:</th>
+                    <td><%= @book_accessed.edition%></td>
+                </tr>
+                <tr>
+                    <th>Language:</th>
+                    <td><%= @book_accessed.language%></td>
+                </tr>
+                <tr>
+                    <th>Is Special:</th>
+                    <td><%= @book_accessed.is_special ? "Yes" : "No"%></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

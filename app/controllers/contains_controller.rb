@@ -1,5 +1,5 @@
 class ContainsController < ApplicationController
-  before_action :set_contain, only: [:show, :edit, :update, :destroy]
+  before_action :set_contain, only: [:show, :edit, :update, :destroy, :show_lib_book]
 
   # TODO: directly add book to library link from lib_books
 
@@ -73,10 +73,22 @@ class ContainsController < ApplicationController
   end
 
   #GET
-  def library_books
-    lib_id = params[:library_id]
-    lib_name = Library.get_lib_name(lib_id)
-    lib_books = Contain.get_books_of_lib(lib_id)
+  # def library_books
+  #   lib_id = params[:library_id]
+  #   lib_name = Library.get_lib_name(lib_id)
+  #   lib_books = Contain.get_books_of_lib(lib_id)
+  # end
+
+  # GET - Show details of book from a lib
+  def show_lib_book
+    @library_accessed = Library.find(@contain.library_id)
+    @book_accessed = Book.find(@contain.book_id)
+
+    @show_checkout = Contain.can_checkout(@contain) && !Request.is_checked_out(@contain, current_user.id)
+    @show_hold = Contain.can_hold(@contain) && !Request.is_checked_out(@contain) && !Request.is_on_hold(@contain, current_user.id)
+    @show_return = Request.is_checked_out(@contain, current_user.id)
+    @show_cancel_hold = Request.is_on_hold(@contain, current_user.id)
+    @bookmarked = Request.is_bookmarked(@contain, current_user.id)
   end
 
   private

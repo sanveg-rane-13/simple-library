@@ -8,19 +8,15 @@
             <th colspan="4"></th>
         </tr>
     </thead>
-    <tbody>
 
+    <tbody>
         <% @contains_books.each do |contains| %>
         <tr>
             <% @book = Book.find(contains.book_id)%>
             <td><%= @book.title %></td>
             <td><%= contains.count %></td>
 
-            <td><%= link_to 'Show Book', books_path(@book)%></td>
-
-            <% if current_user.student? %>
-            <td>Checkout Book</td>
-            <% end %>
+            <td><%= link_to 'Show Book', show_lib_book_contain_path(contains)%></td>
 
             <% if not current_user.student? %>
             <td><%= link_to 'Edit Count', edit_contain_path(contains) %></td>
