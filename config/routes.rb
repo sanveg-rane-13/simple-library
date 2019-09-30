@@ -16,17 +16,8 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "registrations" }
 
-  authenticated :admin do
-    resources :static_pages do
-      get :approvals
-      member do
-        put :approve_librarian
-      end
-
-      # collection do
-      #   patch :approve_all_librarians
-      # end
-    end
+  resources :static_pages do
+    put "approve_librarian", on: :member
   end
 
   resources :contains do
