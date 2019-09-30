@@ -23,5 +23,7 @@
   <%= @library.overdue_fine %>
 </p>
 
+<%= link_to 'View Books', lib_books_library_path(@library)%>
+<br><br>
 <%= link_to 'Edit', edit_library_path(@library) %> |
 <%= link_to 'Back', user_libs_path %>

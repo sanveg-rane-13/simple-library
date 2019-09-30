@@ -46,7 +46,7 @@
 <% if @current_user.admin? %>
 <ul class="list-group">
     <!-- View all libraries -->
-    <li class="list-group-item"><%= link_to 'View Libraries', libraries_path %></li>
+    <li class="list-group-item"><%= link_to 'View Libraries', user_libs_path %></li>
     <!-- Add Libraries -->
     <li class="list-group-item"><%= link_to 'Add New Library', new_library_path %></li>
     <!-- View all libraries -->

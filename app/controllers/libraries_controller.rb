@@ -1,6 +1,7 @@
 class LibrariesController < ApplicationController
   before_action :set_library, only: [:show, :edit, :update, :destroy, :lib_books]
   before_action :init_libraries, only: [:user_libs]
+  before_action :init_current_user, only: [:lib_books, :user_libs]
 
   # GET /libraries
   # GET /libraries.json
@@ -65,20 +66,18 @@ class LibrariesController < ApplicationController
 
   # GET
   def user_libs
-    user = current_user
-
-    if (user.student)
-      @libraries = Library.get_lib_by_univ_name(user.university)
-    elsif (user.librarian)
-      @libraries = Library.get_by_lib_id(user.library_id)
-    elsif (user.admin)
+    if (@current_user.student)
+      @libraries = Library.get_lib_by_univ_name(@current_user.university)
+    elsif (@current_user.librarian)
+      @libraries = Library.get_by_lib_id(@current_user.library_id)
+    elsif (@current_user.admin)
       @libraries = Library.all
     end
   end
 
   # GET - books in a library
   def lib_books
-    
+    @contains_books = Contain.get_books_of_lib(@library.id)
   end
 
   private
@@ -91,6 +90,10 @@ class LibrariesController < ApplicationController
   # Empty list of libraries before fetching
   def init_libraries
     @libraries = []
+  end
+
+  def init_current_user
+    @current_user = current_user
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
