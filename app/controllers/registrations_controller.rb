@@ -1,5 +1,19 @@
 class RegistrationsController < Devise::RegistrationsController
+  protected
+
+  def after_sign_up_path_for(resource)
+    edit_user_registration_path resource
+  end
+
+  def after_update_path_for(resource)
+    edit_user_registration_path resource
+  end
+  
   private
+
+  def sign_up_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :student, :librarian)
+  end
 
   def update_resource(resource, params)
     return super if params["password"]&.present?
@@ -7,6 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # permitting parameters for user creation
+  '''
   def sign_up_params
     params.require(:user)
       .permit(
@@ -21,7 +36,7 @@ class RegistrationsController < Devise::RegistrationsController
         :librarian
       )
   end
-
+  '''
   # permitting parameters for user updates
   def account_update_params
     params.require(:user)

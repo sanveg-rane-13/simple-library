@@ -47,19 +47,19 @@ ActiveRecord::Schema.define(version: 2019_09_28_224816) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "requests", force: :cascade do |t|
-    t.datetime "start"
-    t.datetime "end"
-    t.boolean "special_approval"
-    t.datetime "hold"
-    t.boolean "bookmark"
+  create_table "library_books", force: :cascade do |t|
+    t.integer "count"
     t.integer "library_id"
-    t.integer "student_id"
     t.integer "book_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_requests_on_book_id"
-    t.index ["student_id"], name: "index_requests_on_student_id"
+    t.index ["book_id"], name: "index_library_books_on_book_id"
+    t.index ["library_id"], name: "index_library_books_on_library_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
