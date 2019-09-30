@@ -1,5 +1,6 @@
 class LibrariesController < ApplicationController
-  before_action :set_library, only: [:show, :edit, :update, :destroy]
+  before_action :set_library, only: [:show, :edit, :update, :destroy, :lib_books]
+  before_action :init_libraries, only: [:user_libs]
 
   # GET /libraries
   # GET /libraries.json
@@ -62,11 +63,34 @@ class LibrariesController < ApplicationController
     end
   end
 
+  # GET
+  def user_libs
+    user = current_user
+
+    if (user.student)
+      @libraries = Library.get_lib_by_univ_name(user.university)
+    elsif (user.librarian)
+      @libraries = Library.get_by_lib_id(user.library_id)
+    elsif (user.admin)
+      @libraries = Library.all
+    end
+  end
+
+  # GET - books in a library
+  def lib_books
+    
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_library
     @library = Library.find(params[:id])
+  end
+
+  # Empty list of libraries before fetching
+  def init_libraries
+    @libraries = []
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

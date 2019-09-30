@@ -33,7 +33,15 @@ Rails.application.routes.draw do
     get :library_books
   end
 
+  resources :libraries do
+    member do
+      get :lib_books
+    end
+  end
+
+  # custom routes
   get "approvals", to: "static_pages#approvals"
+  get "user_libs", to: "libraries#user_libs"
 
   root "static_pages#home"
 end
