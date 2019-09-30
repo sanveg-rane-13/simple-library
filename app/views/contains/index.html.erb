@@ -1,25 +1,77 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Contains</h1>
+<h1> Search Books</h1>
 
-<table>
+<br><br>
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <%= form_tag books_path, method: 'get', :class => "col-sm-11" do %>
+    <input type='hidden' name='search' value='true'>
+    <div class="col-sm-3">
+      <input type='string' class="form-control" placeholder="Title" name='title' value="<%= params[:title]%>">
+    </div>
+    <div class="col-sm-3">
+      <input type='string' class="form-control" placeholder="Author" name='author' value="<%=params[:author]%>">
+    </div>
+    <div class="col-sm-3">
+      <input type='date' class="form-control" placeholder="Published" name='published' value="<%=params[:published]%>">
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary">Search</button>
+    </div>
+  <% end %>
+</div>
+
+<br><br>
+
+<table class="table">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Library</th>
+      <th>Subject</th>
+      <th>ISBN</th>
+      <th>Special</th>
+      <th>Summary</th>
+      <th>Edition</th>
+      <th>Publised</th>
+      <th>Language</th>
+
+      <% if current_user.librarian? %>
+        <th><strong>Students</strong></th>
+        <th>Control</th>
+      <% end %>
+
+      <% if current_user.student? %>
+        <th></th>
+      <% end %>
     </tr>
   </thead>
-
   <tbody>
     <% @contains.each do |contain| %>
-      <tr>
-        <td><%= link_to 'Show', contain %></td>
-        <td><%= link_to 'Edit', edit_contain_path(contain) %></td>
-        <td><%= link_to 'Destroy', contain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if contain.university == current_user.university %>
+        <tr>
+          <td><%= contain.title %></td>
+          <td><%= contain.author %></td>
+          <td><%= contain.name %></td>
+          <td><%= contain.subject %></td>
+          <td><%= contain.isbn %></td>
+          <td><%= contain.is_special %></td>
+          <td><%= contain.summary %></td>
+          <td><%= contain.edition %></td>
+          <td><%= contain.published %></td>
+          <td><%= contain.language %></td>
+          <% if not @current_user.student? %>
+            <td><%= link_to 'Show', contain %></td>
+            <td><%= link_to 'Edit', edit_contain_path(contain) %></td>
+            <td><%= link_to 'Destroy', contain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Contain', new_contain_path %>
+<%= link_to 'Home', "/" %>
