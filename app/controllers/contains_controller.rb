@@ -60,6 +60,13 @@ class ContainsController < ApplicationController
     end
   end
 
+  #GET
+  def library_books
+    lib_id = params[:library_id]
+    lib_name = Library.get_lib_name(lib_id)
+    lib_books = Contain.get_books_of_lib(lib_id)
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
