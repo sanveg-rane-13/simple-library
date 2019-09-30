@@ -8,7 +8,7 @@ class CreateRequests < ActiveRecord::Migration[6.0]
       t.boolean :bookmark
       t.integer :library_id
 
-      t.belongs_to :student
+      t.belongs_to :user
       t.belongs_to :book
       
       t.timestamps

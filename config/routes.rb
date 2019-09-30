@@ -30,7 +30,10 @@ Rails.application.routes.draw do
   end
 
   resources :contains do
-    get :library_books
+    # get :library_books
+    member do
+      get :show_lib_book   # show details of particular book from library
+    end
   end
 
   resources :libraries do

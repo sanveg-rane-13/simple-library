@@ -54,12 +54,12 @@ ActiveRecord::Schema.define(version: 2019_09_28_224816) do
     t.datetime "hold"
     t.boolean "bookmark"
     t.integer "library_id"
-    t.integer "student_id"
+    t.integer "user_id"
     t.integer "book_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_requests_on_book_id"
-    t.index ["student_id"], name: "index_requests_on_student_id"
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
