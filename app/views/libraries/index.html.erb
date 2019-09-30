@@ -10,7 +10,7 @@
       <th>Location</th>
       <th>Max borrow days</th>
       <th>Overdue fine</th>
-      <th colspan="4"></th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -24,6 +24,7 @@
       <td><%= library.overdue_fine %></td>
 
       <td><%= link_to 'Show', library %></td>
+      <td><%= link_to 'View Books', lib_books_library_path(library)%></td>
       <% if not @current_user.student? %>
       <td><%= link_to 'Edit', edit_library_path(library) %></td>
       <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>

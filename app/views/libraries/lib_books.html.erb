@@ -1,0 +1,36 @@
+<h3>Books in <%= @library.name%></h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Count</th>
+            <th colspan="4"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <% @contains_books.each do |contains| %>
+        <tr>
+            <% @book = Book.find(contains.book_id)%>
+            <td><%= @book.title %></td>
+            <td><%= contains.count %></td>
+
+            <td><%= link_to 'Show Book', books_path(@book)%></td>
+
+            <% if current_user.student? %>
+            <td>Checkout Book</td>
+            <% end %>
+
+            <% if not current_user.student? %>
+            <td><%= link_to 'Edit Count', edit_contain_path(contains) %></td>
+            <td><%= link_to 'Delete from Library', contains, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<%= link_to 'Back', user_libs_path %> |
+<%= link_to 'Home', "/" %>

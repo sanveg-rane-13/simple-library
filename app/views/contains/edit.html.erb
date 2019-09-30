@@ -1,5 +1,5 @@
 <h1>Editing Contain</h1>
 
-<%= render 'form', contain: @contain %>
+<%= render 'form', library: @contain, form_url: contain_path(@contain), submit_label: 'Update Book Count' %>
 
 <%= link_to 'Back', "/" %>
