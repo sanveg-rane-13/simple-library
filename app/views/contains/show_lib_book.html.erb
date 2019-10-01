@@ -10,6 +10,10 @@
         <div class="card summary-details">
             <p><%=@book_accessed.summary%></p>
         </div>
+        <% if @message %><div class="card summary-details">
+            <p><%= raw @message%></p>
+        </div><% end %>
+
         <div class="book-actions">
             <ul class="list-group list-group-horizontal">
                 <%if @show_checkout%><li class="list-group-item btn">
