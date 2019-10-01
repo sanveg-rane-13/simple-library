@@ -92,6 +92,12 @@ class RequestsController < ApplicationController
     end
   end
 
+  #GET view held books
+  def view_hold
+    @current_user = current_user
+    @request = Request.joins(:user, :book).select(:name, :title)
+    end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

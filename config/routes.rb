@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   # custom routes
   get "approvals", to: "static_pages#approvals"
   get "user_libs", to: "libraries#user_libs"
+  get "view_hold", to: "requests#view_hold"
 
   root "static_pages#home"
 end
