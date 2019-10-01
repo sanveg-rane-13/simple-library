@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
-  before_action :set_lib_book, only: [:check_out_book]
+  before_action :set_lib_book, only: [:check_out_book, :return_book]
 
   # GET /requests
   # GET /requests.json
@@ -67,11 +67,26 @@ class RequestsController < ApplicationController
     request = Request.new_checkout_obj(@lib_book, current_user.id)
 
     respond_to do |format|
-      if request.save
+      if (request.save && @lib_book.save)
         format.html { redirect_to show_lib_book_contain_path(@lib_book), notice: "Book checked out successfully!" }
         format.json { render :show, status: :created, location: @request }
       else
-        format.html { render :new }
+        format.html { render show_lib_book_contain_path(@lib_book), alert: "Error checking out book" }
+        format.json { render json: @request.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST - Return a checked-out book
+  def return_book
+    request = Request.new_return_obj(@lib_book, current_user.id)
+
+    respond_to do |format|
+      if (request.delete && @lib_book.save)
+        format.html { redirect_to show_lib_book_contain_path(@lib_book), notice: "Book returned successfully!" }
+        format.json { render :show, status: :created, location: @request }
+      else
+        format.html { render show_lib_book_contain_path(@lib_book), alert: "Error returning book" }
         format.json { render json: @request.errors, status: :unprocessable_entity }
       end
     end

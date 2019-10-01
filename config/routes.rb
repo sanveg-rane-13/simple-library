@@ -22,7 +22,8 @@ Rails.application.routes.draw do
 
   resources :requests do
     collection do
-      post "check_out_book", to: "check_out_book"
+      post "check_out_book"
+      post "return_book"
     end
   end
 
