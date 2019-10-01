@@ -45,6 +45,7 @@ class RegistrationsController < Devise::RegistrationsController
         :email,
         :password,
         :password_confirmation,
+        :study_level,
         :current_password,
         :university,
         :pending_approval,
