@@ -16,7 +16,7 @@
             <td><%= librarian.email %></td>
 
             <% if @current_user.admin? %>
-            <td><%= link_to 'Approve', approve_librarian_static_page_url(librarian), method: :put %></td>
+            <td><%= link_to 'Approve', approve_librarian_static_page_path(librarian), method: :put %></td>
             <% end %>
         </tr>
         <% end %>

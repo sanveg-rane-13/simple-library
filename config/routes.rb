@@ -20,8 +20,13 @@ Rails.application.routes.draw do
     put "approve_librarian", on: :member
   end
 
+  resources :requests do
+    collection do
+      post "check_out_book", to: "check_out_book"
+    end
+  end
+
   resources :contains do
-    # get :library_books
     member do
       get :show_lib_book   # show details of particular book from library
     end

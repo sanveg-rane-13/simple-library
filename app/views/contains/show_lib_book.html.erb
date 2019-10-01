@@ -13,7 +13,8 @@
         <div class="book-actions">
             <ul class="list-group list-group-horizontal">
                 <%if @show_checkout%><li class="list-group-item btn">
-                    <%= link_to 'Checkout', lib_books_library_path(@library_accessed)%></li><%end%>
+                    <%= link_to 'Checkout', check_out_book_requests_path(lib_book_id: @contain), method: :post%></li>
+                <%end%>
                 <%if @show_hold%><li class="list-group-item btn">
                     <%= link_to 'Hold', lib_books_library_path(@library_accessed)%></li><%end%>
                 <%if @show_return%><li class="list-group-item btn">
