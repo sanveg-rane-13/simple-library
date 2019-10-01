@@ -86,7 +86,7 @@ class ContainsController < ApplicationController
 
     if (!current_user.is_max_allowed_reached)
       @show_checkout = Contain.can_checkout(@contain) && !Request.is_checked_out(@contain, current_user.id)
-      @show_hold = Contain.can_hold(@contain) && !Request.is_checked_out(@contain) && !Request.is_on_hold(@contain, current_user.id)
+      @show_hold = Contain.can_hold(@contain) && !Request.is_checked_out(@contain, current_user.id) && !Request.is_on_hold(@contain, current_user.id)
     end
 
     @show_return = Request.is_checked_out(@contain, current_user.id)
