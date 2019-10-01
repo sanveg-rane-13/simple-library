@@ -28,4 +28,17 @@ class Contain < ApplicationRecord
 
     return contain.count == 0 ? true : false
   end
+
+  # reduce count when checked out
+  def reduce_count
+    count = self[:count]
+    if (count > 0)
+      self[:count] = count - 1
+    end
+  end
+
+  # increase count when returned
+  def increase_count
+    self[:count] = self[:count] + 1
+  end
 end

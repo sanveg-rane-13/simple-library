@@ -7,14 +7,14 @@ class ContainsController < ApplicationController
   # GET /contains.json
   def index
     @current_user = current_user
-    
+
     if params[:search].blank?
       @contains = Contain.joins(:book, :library).select(:title, :author, :name, :university, :subject, :isbn, :is_special, :summary, :edition, :published, :language)
     else
       @contains = Contain.joins(:book, :library).select(:title, :author, :name, :university, :subject, :isbn, :is_special, :summary, :edition, :published, :language)
-                    .where(['title LIKE ?', "%#{params[:title]}%"])
-                    .where(['author LIKE ?', "%#{params[:author]}%"])
-                    .where(['published LIKE ?', "%#{params[:published]}%"])
+        .where(["title LIKE ?", "%#{params[:title]}%"])
+        .where(["author LIKE ?", "%#{params[:author]}%"])
+        .where(["published LIKE ?", "%#{params[:published]}%"])
     end
   end
 
@@ -84,8 +84,11 @@ class ContainsController < ApplicationController
     @library_accessed = Library.find(@contain.library_id)
     @book_accessed = Book.find(@contain.book_id)
 
-    @show_checkout = Contain.can_checkout(@contain) && !Request.is_checked_out(@contain, current_user.id)
-    @show_hold = Contain.can_hold(@contain) && !Request.is_checked_out(@contain) && !Request.is_on_hold(@contain, current_user.id)
+    if (!current_user.is_max_allowed_reached)
+      @show_checkout = Contain.can_checkout(@contain) && !Request.is_checked_out(@contain, current_user.id)
+      @show_hold = Contain.can_hold(@contain) && !Request.is_checked_out(@contain, current_user.id) && !Request.is_on_hold(@contain, current_user.id)
+    end
+
     @show_return = Request.is_checked_out(@contain, current_user.id)
     @show_cancel_hold = Request.is_on_hold(@contain, current_user.id)
     @bookmarked = Request.is_bookmarked(@contain, current_user.id)
