@@ -1,66 +1,6 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
-  before_action :set_lib_book, only: [:check_out_book, :return_book]
-
-  # GET /requests
-  # GET /requests.json
-  def index
-    @requests = Request.all
-  end
-
-  # GET /requests/1
-  # GET /requests/1.json
-  def show
-  end
-
-  # GET /requests/new
-  def new
-    @request = Request.new
-  end
-
-  # GET /requests/1/edit
-  def edit
-  end
-
-  # POST /requests
-  # POST /requests.json
-  def create
-    @request = Request.new(request_params)
-
-    respond_to do |format|
-      if @request.save
-        format.html { redirect_to @request, notice: "Request was successfully created." }
-        format.json { render :show, status: :created, location: @request }
-      else
-        format.html { render :new }
-        format.json { render json: @request.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /requests/1
-  # PATCH/PUT /requests/1.json
-  def update
-    respond_to do |format|
-      if @request.update(request_params)
-        format.html { redirect_to @request, notice: "Request was successfully updated." }
-        format.json { render :show, status: :ok, location: @request }
-      else
-        format.html { render :edit }
-        format.json { render json: @request.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /requests/1
-  # DELETE /requests/1.json
-  def destroy
-    @request.destroy
-    respond_to do |format|
-      format.html { redirect_to requests_url, notice: "Request was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  before_action :set_lib_book, only: [:check_out_book, :return_book, :hold_book, :rem_hold_book]
 
   # POST - Checkout request on book
   def check_out_book
@@ -71,19 +11,20 @@ class RequestsController < ApplicationController
         format.html { redirect_to show_lib_book_contain_path(@lib_book), notice: "Book checked out successfully!" }
         format.json { render :show, status: :created, location: @request }
       else
-        format.html { render show_lib_book_contain_path(@lib_book), alert: "Error checking out book" }
+        format.html { redirect_to show_lib_book_contain_path(@lib_book), alert: "Error checking out book" }
         format.json { render json: @request.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # POST - Return a checked-out book
+  # TODO: Check if any books on hold
   def return_book
-    request = Request.new_return_obj(@lib_book, current_user.id)
+    request = Request.new_return_request_obj(@lib_book, current_user.id)
 
     respond_to do |format|
-      if (request.delete && @lib_book.save)
-        format.html { redirect_to show_lib_book_contain_path(@lib_book), notice: "Book returned successfully!" }
+      if request.update({ end: request.end }) && @lib_book.save
+        format.html { redirect_to show_lib_book_contain_path(@lib_book), notice: "Book returned!" }
         format.json { render :show, status: :created, location: @request }
       else
         format.html { render show_lib_book_contain_path(@lib_book), alert: "Error returning book" }
@@ -92,11 +33,37 @@ class RequestsController < ApplicationController
     end
   end
 
+  # POST - Put a book on hold
+  def hold_book
+    request = Request.new_hold_request_object(@lib_book, current_user.id)
+
+    respond_to do |format|
+      if request.save
+        format.html { redirect_to show_lib_book_contain_path(@lib_book), notice: "Book set on hold!" }
+        format.json { render :show, status: :created, location: @request }
+      else
+        format.html { render show_lib_book_contain_path(@lib_book), alert: "Error setting book on hold" }
+        format.json { render json: @request.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST - Delete a book hold request
+  def rem_hold_book
+    request = Request.new_cancel_hold_request_object(@lib_book, current_user.id)
+
+    request.destroy
+    respond_to do |format|
+      format.html { redirect_to show_lib_book_contain_path(@lib_book), notice: "Book removed from hold" }
+      format.json { head :no_content }
+    end
+  end
+
   #GET view held books
   def view_hold
     @current_user = current_user
     @request = Request.joins(:user, :book).select(:name, :title)
-    end
+  end
 
   private
 

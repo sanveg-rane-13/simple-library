@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   resources :libraries
   resources :books
-  resources :requests
   resources :contains
 
   get "users/new"
@@ -24,6 +23,8 @@ Rails.application.routes.draw do
     collection do
       post "check_out_book"
       post "return_book"
+      post "hold_book"
+      post "rem_hold_book"
     end
   end
 

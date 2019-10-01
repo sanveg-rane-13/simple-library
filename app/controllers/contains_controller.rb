@@ -82,6 +82,8 @@ class ContainsController < ApplicationController
     if (!current_user.is_max_allowed_reached)
       @show_checkout = Contain.can_checkout(@contain) && !Request.is_checked_out(@contain, current_user.id)
       @show_hold = Contain.can_hold(@contain) && !Request.is_checked_out(@contain, current_user.id) && !Request.is_on_hold(@contain, current_user.id)
+    else
+      @message = "You have reached the max limit to borrow books"
     end
 
     # if book checked out or put on hold
@@ -91,7 +93,7 @@ class ContainsController < ApplicationController
     # book mark book
     @bookmarked = Request.is_bookmarked(@contain, current_user.id)
 
-    # show message as per status of the book
+    # show return date if book is checked out
     if @show_return
       req = Request.get_request(@contain, current_user.id)
       @message = "Checkout Date: #{req.book_checkout_date}"
@@ -100,6 +102,18 @@ class ContainsController < ApplicationController
       if (late_fine > 0)
         @message.concat("<br>Fine: #{late_fine.to_s}")
       end
+    end
+
+    # show hold message if book on hold
+    if @show_cancel_hold
+      @message = "Book on hold. You will receive notification once available <br>"
+      @message.concat("Hold count: #{Request.get_hold_count(@contain)}")
+    end
+
+    # show hold count if book not available
+    if @show_hold
+      @message = "Book unavailable <br>"
+      @message.concat("Hold count: #{Request.get_hold_count(@contain)}")
     end
   end
 
