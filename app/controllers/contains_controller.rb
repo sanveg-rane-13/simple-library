@@ -72,26 +72,35 @@ class ContainsController < ApplicationController
     end
   end
 
-  #GET
-  # def library_books
-  #   lib_id = params[:library_id]
-  #   lib_name = Library.get_lib_name(lib_id)
-  #   lib_books = Contain.get_books_of_lib(lib_id)
-  # end
-
   # GET - Show details of book from a lib
+  # Manages messages displayed on the book view
   def show_lib_book
     @library_accessed = Library.find(@contain.library_id)
     @book_accessed = Book.find(@contain.book_id)
 
+    # check if book can be checked out or put on hold
     if (!current_user.is_max_allowed_reached)
       @show_checkout = Contain.can_checkout(@contain) && !Request.is_checked_out(@contain, current_user.id)
       @show_hold = Contain.can_hold(@contain) && !Request.is_checked_out(@contain, current_user.id) && !Request.is_on_hold(@contain, current_user.id)
     end
 
+    # if book checked out or put on hold
     @show_return = Request.is_checked_out(@contain, current_user.id)
     @show_cancel_hold = Request.is_on_hold(@contain, current_user.id)
+
+    # book mark book
     @bookmarked = Request.is_bookmarked(@contain, current_user.id)
+
+    # show message as per status of the book
+    if @show_return
+      req = Request.get_request(@contain, current_user.id)
+      @message = "Checkout Date: #{req.book_checkout_date}"
+      @message.concat("<br>Return Date: #{req.book_return_date}")
+      late_fine = req.get_late_fee
+      if (late_fine > 0)
+        @message.concat("<br>Fine: #{late_fine.to_s}")
+      end
+    end
   end
 
   private

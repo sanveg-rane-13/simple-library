@@ -62,10 +62,53 @@ class Request < ApplicationRecord
     return !request.empty?
   end
 
+  # check if the book is bookmarked by the user
   def self.is_bookmarked(lib_book, user_id)
     request = Request.where({ user_id: user_id,
                              library_id: lib_book.library_id,
                              book_id: lib_book.book_id }).where(bookmark: true)
     return !request.empty?
+  end
+
+  def self.get_request(lib_book, user_id)
+    return Request.where({ user_id: user_id,
+                          library_id: lib_book.library_id,
+                          book_id: lib_book.book_id }).first
+  end
+
+  # get the string value of borrow date of a book
+  def book_checkout_date
+    start_date = self[:start]
+    if !start_date.nil?
+      return start_date.to_date.strftime("%b-%d-%Y")
+    end
+  end
+
+  # get the string value of last date to return a book
+  def book_return_date
+    max_brw_days = Library.find(self[:library_id]).max_borrow_days
+    start_date = self[:start]
+
+    if !start_date.nil?
+      last_date = start_date + max_brw_days.days
+      return last_date.to_date.strftime("%b-%d-%Y")
+    end
+  end
+
+  # if overdue return the total late fee
+  def get_late_fee
+    lib = Library.find(self[:library_id])
+    max_brw_days = lib.max_borrow_days
+    fine = lib.overdue_fine
+
+    late_fee = 0
+    start_date = self[:start]
+
+    if !start_date.nil? && Time.now > start_date + max_brw_days.days
+      overdue_days = (Time.now.to_date - (start_date + max_brw_days.days).to_date).to_i
+      late_fee = fine * overdue_days
+    end
+
+    return late_fee
   end
 end
