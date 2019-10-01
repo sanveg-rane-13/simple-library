@@ -91,7 +91,7 @@ class ContainsController < ApplicationController
     @show_cancel_hold = Request.is_on_hold(@contain, current_user.id)
 
     # book mark book
-    @bookmark = Request.is_bookmarked(@contain, current_user.id)
+    # @bookmark = Request.is_bookmarked(@contain, current_user.id)
 
     # show return date if book is checked out
     if @show_return
