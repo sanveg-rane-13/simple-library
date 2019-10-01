@@ -27,10 +27,11 @@ class Request < ApplicationRecord
 
   # get the request object to delete on return
   # NOTE: persist the lib_book object as well
-  def self.new_return_request_obj(lib_book, user_id)
+  def self.get_return_request_obj(lib_book, user_id)
     request = Request.where({ library_id: lib_book.library_id,
                              user_id: user_id,
-                             book_id: lib_book.book_id }).where.not(start: nil).first
+                             book_id: lib_book.book_id })
+      .where(end: nil).where.not(start: nil).first
     if !request.nil?
       lib_book.increase_count
       request.end = Time.now
