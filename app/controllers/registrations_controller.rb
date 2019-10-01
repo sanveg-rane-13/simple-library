@@ -20,6 +20,11 @@ class RegistrationsController < Devise::RegistrationsController
     resource.update_without_password(params.except("current_password"))
   end
 
+  def after_update_path_for(resource)
+    "/"
+    # "http://localhost:3000"
+  end
+
   # permitting parameters for user creation
   '''
   def sign_up_params
