@@ -1,0 +1,26 @@
+<h1>Hold Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @requests != nil %>
+        <% @requests.each do |request| %>
+            <% if request.library_id == curent_user.library_id and request.hold == true %>
+                <tr>
+                    <td>request.name</td>
+                    <td>request.title</td>
+                </tr>
+            <% end %>
+        <% end %>
+    <% else %>
+            no hold requests
+    <% end %>
+  </tbody>
+</table>
+
+<br>
