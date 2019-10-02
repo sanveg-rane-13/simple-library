@@ -17,11 +17,11 @@ class Library < ApplicationRecord
   end
 
   def self.get_lib_list_for_user(current_user)
-    if (@current_user.student)
-      libraries = self.get_lib_by_univ_name(@current_user.university)
-    elsif (@current_user.librarian)
-      libraries = self.get_by_lib_id(@current_user.library_id)
-    elsif (@current_user.admin)
+    if (current_user.student)
+      libraries = self.get_lib_by_univ_name(current_user.university)
+    elsif (current_user.librarian)
+      libraries = self.get_by_lib_id(current_user.library_id)
+    elsif (current_user.admin)
       libraries = self.all
     else
       libraries = []

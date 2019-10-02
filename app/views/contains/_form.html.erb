@@ -1,10 +1,10 @@
 <div class="card">
     <div class="container" style="padding: 2%">
 
-        <%= bootstrap_form_for(@contain, @current_user,
+        <%= bootstrap_form_for(@contain,
                   url: form_url, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-6") do |f| %>
 
-        <%= f.select :library_id, Library.all.collect{ |e| [e.name, e.id] } , required: true  %>
+        <%= f.select :library_id, Library.get_lib_list_for_user(@current_user).collect{ |e| [e.name, e.id] } , required: true  %>
         <%= f.select :book_id, Book.all.collect{ |e| [e.title, e.id] }, required: true  %>
         <%= f.number_field :count, required: true %>
 

@@ -80,6 +80,7 @@ class LibrariesController < ApplicationController
 
   # Empty list of libraries before fetching
   def init_libraries
+    @current_user = current_user
     @libraries = Library.get_lib_list_for_user(@current_user)
   end
 
