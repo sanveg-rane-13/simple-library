@@ -9,6 +9,11 @@ class Contain < ApplicationRecord
     Contain.where(library_id: library_id)
   end
 
+  # get contains object from lib id and book id
+  def self.get_lib_book(library_id, book_id)
+    return Contain.where({ library_id: library_id, book_id: book_id }).first
+  end
+
   # check if book is avaliable for checkout from a library
   def self.can_checkout(lib_book)
     contain = Contain.where({ library_id: lib_book.library_id, book_id: lib_book.book_id }).first

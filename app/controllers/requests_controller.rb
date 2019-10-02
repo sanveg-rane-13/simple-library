@@ -65,6 +65,11 @@ class RequestsController < ApplicationController
     @request = Request.joins(:user, :book).select(:name, :title)
   end
 
+  # GET get all requests made by the user
+  def manage_book_reqs
+    @user_book_reqs = Request.where({ user_id: current_user.id })
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
