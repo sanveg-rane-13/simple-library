@@ -79,8 +79,13 @@ A Library management system for students to borrow books.
 5.	Student can edit profile using the button given on top right corner.
 6.	They can also delete their profile whenever they want.
 
+#### Pending features
+- Deleteing a library or book - Users (admin included) cannot delete a library or book
+- Book cover image not yet visible to users
+- Checkout book for hold student after available with email notification
+- Show borrow history and overdue fines to librarian
 
- ##### Run project in local:
+##### Run project in local:
   - Clone the repo
   - cd into simple-library
   - run command - bundle install
