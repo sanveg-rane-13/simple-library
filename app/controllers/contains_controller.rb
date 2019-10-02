@@ -7,9 +7,9 @@ class ContainsController < ApplicationController
     @current_user = current_user
 
     if params[:search].blank?
-      @contains = Contain.joins(:book, :library).select(:title, :author, :name, :university, :subject, :isbn, :is_special, :summary, :edition, :published, :language)
+      @contains = Contain.joins(:book, :library).select('*')
     else
-      @contains = Contain.joins(:book, :library).select(:title, :author, :name, :university, :subject, :isbn, :is_special, :summary, :edition, :published, :language)
+      @contains = Contain.joins(:book, :library).select('*')
         .where(["title LIKE ?", "%#{params[:title]}%"])
         .where(["author LIKE ?", "%#{params[:author]}%"])
         .where(["published LIKE ?", "%#{params[:published]}%"])

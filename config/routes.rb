@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :libraries
   resources :books
+  resources :requests
   resources :contains
 
   get "users/new"
