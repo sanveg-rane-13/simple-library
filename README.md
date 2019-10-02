@@ -15,13 +15,6 @@ A Library management system for students to borrow books.
 ##### Admin details:
   - Admin : admin@simple-lib.com
   - Pass  : admin1
-  
- ##### Run project in local:
-  - Clone the repo
-  - cd into simple-library
-  - run command - bundle install
-  - run command - rake db:migrate
-  - run command - rails s
 
 ### Web Application can be viewed in 3 roles:
 1. Admin
@@ -35,15 +28,17 @@ A Library management system for students to borrow books.
 2. Admin can login via email and password from the signin page.
 3. After logging in, admin can perform the following operations from the homepage:
 	
-**List All Libraries** - All the libraries avaliable in the DB. Admin can add/delete them.
+	**View Libraries** - All the libraries avaliable in the system
   
-**List All Books** - All the Books avaliable in the DB. Admin can add/delete them.
+	**Add New Library** - Add a new library in the system
 	
-	**List All Librarians** - All the Librarians listed on the portal will be displayed with the relevant details. The Admin will approve a librarian file.
+	**View Books** - View all books available in the system
 	
-	**List All Students**- All the users registered on the portal will be displayed.The Admin can view/modify/delete the Students.
+	**Add New Book**- Add a new book in the system
 	
-	**Add New Library** - Admin can create a new Library.
+	**Add Book to Library** - Add a book in library with correspondin count
+	
+	**View Librarians to Approve** - View list of new librarians to approve
 	
 4.	Admin can also edit his profile but will not be able to delete the account.
 5.	Admin can logout using Logout option given in top-right corner.
@@ -54,12 +49,10 @@ A Library management system for students to borrow books.
 
 1.	After signing up, the Library can associate himself with a Library by editing the profile information. He can choose any existing company in the system or create a new company in the edit profile page.
 2.	After login, Librarian can perform the following operations from the homepage:
-
-	**Books** - Librarian will be able to view all the books.
-  - Librarian can add books with relevant information to the library.
-  - Librarian can approve special books.
-  - Librarian can view overdue fines on students for books.
-  - Librarian can view hold requests on books by students. 
+	- Librarian will be able to view all the books.
+  	- Librarian can add existing books (added by admin) to his library.
+  	- Librarian can approve or deny requests special books.
+  	- Librarian can view hold requests on books by students. 
 
 
 
@@ -70,9 +63,31 @@ A Library management system for students to borrow books.
 	
 	**View Libraries** - All the libraries present in the DB will be viewed.
 	
-	**Manage Borrowed Books** - Student can manage it's books.
+	**Manage Borrowed Books** - Student can manage his books.
 	
 	**Search Books** - Student can filter books according to the filters he/she will set.
+3. 	**Checkout book:** 
+	- Click on "View Libraries" to see list of all libraries associated with student's university.
+	- Click on "View Books" to see all available books in the library
+	- Click on "Show Book" to see details of the book
+	- Click "Checkout" to checkout a book, return deadline will be displayed
+		- If no books are availabe "Hold" option is displayed
+		- If book is marked special - request is raised for librarian to approve
+		- On approval book is added to user's checked out books
+	- The book will appear in "View Book Requests" option on student's home
+4.	Students can view status of the books checked out/ hold/ returned in "View Book Requests"		
+5.	Student can edit profile using the button given on top right corner.
+6.	They can also delete their profile whenever they want.
 
-3.	Student can edit profile using the button given on top right corner.
-4.	They can also delete their profile whenever they want.
+#### Pending features
+- Deleteing a library or book - Users (admin included) cannot delete a library or book
+- Book cover image not yet visible to users
+- Checkout book for hold student after available with email notification
+- Show borrow history and overdue fines to librarian
+
+##### Run project in local:
+  - Clone the repo
+  - cd into simple-library
+  - run command - bundle install
+  - run command - rake db:migrate
+  - run command - rails s
