@@ -15,13 +15,6 @@ A Library management system for students to borrow books.
 ##### Admin details:
   - Admin : admin@simple-lib.com
   - Pass  : admin1
-  
- ##### Run project in local:
-  - Clone the repo
-  - cd into simple-library
-  - run command - bundle install
-  - run command - rake db:migrate
-  - run command - rails s
 
 ### Web Application can be viewed in 3 roles:
 1. Admin
@@ -85,3 +78,11 @@ A Library management system for students to borrow books.
 4.	Students can view status of the books checked out/ hold/ returned in "View Book Requests"		
 5.	Student can edit profile using the button given on top right corner.
 6.	They can also delete their profile whenever they want.
+
+
+ ##### Run project in local:
+  - Clone the repo
+  - cd into simple-library
+  - run command - bundle install
+  - run command - rake db:migrate
+  - run command - rails s
