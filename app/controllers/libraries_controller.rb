@@ -55,11 +55,11 @@ class LibrariesController < ApplicationController
   # DELETE /libraries/1
   # DELETE /libraries/1.json
   def destroy
-    @library.destroy
-    respond_to do |format|
-      format.html { redirect_to libraries_url, notice: "Library was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    # @library.destroy
+    # respond_to do |format|
+    #   format.html { redirect_to libraries_url, notice: "Library was successfully destroyed." }
+    #   format.json { head :no_content }
+    # end
   end
 
   # GET
