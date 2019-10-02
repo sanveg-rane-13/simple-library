@@ -14,7 +14,7 @@ A Library management system for students to borrow books.
   
 ##### Admin details:
   - Admin : admin@simple-lib.com
-  - Pass  : admin
+  - Pass  : admin1
   
  ##### Run project in local:
   - Clone the repo
