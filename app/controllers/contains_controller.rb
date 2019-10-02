@@ -1,8 +1,6 @@
 class ContainsController < ApplicationController
   before_action :set_contain, only: [:show, :edit, :update, :destroy, :show_lib_book]
-
-  # TODO: directly add book to library link from lib_books
-
+  
   # GET /contains
   # GET /contains.json
   def index

@@ -6,8 +6,14 @@ class LibrariesController < ApplicationController
   # GET /libraries
   # GET /libraries.json
   def index
-    @libraries = Library.all
     @current_user = current_user
+    if (@current_user.student)
+      @libraries = Library.get_lib_by_univ_name(@current_user.university)
+    elsif (@current_user.librarian)
+      @libraries = Library.get_by_lib_id(@current_user.library_id)
+    elsif (@current_user.admin)
+      @libraries = Library.all
+    end
   end
 
   # GET /libraries/1
