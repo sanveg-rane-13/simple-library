@@ -37,10 +37,10 @@
 
   <% if is_a_librarian_logged? %>
   <%= f.select :library_id, Library.all.collect{ |e| [e.name, e.id] } , required: true  %>
-  <% end %><%= f.primary 'Save Profile', class:"btn btn-primary"%>
+  <% end %><%= f.primary 'Save Profile'%>
+  <% end %>
   <%if !is_a_admin_logged?%>
   <br>
   <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, :class => 'btn btn-danger' %>
   <%end%>
-  <% end %>
 </div>
