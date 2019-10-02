@@ -36,7 +36,7 @@
   <% if is_a_librarian_logged? %>
   <%= f.select :library_id, Library.all.collect{ |e| [e.name, e.id] } , required: true  %>
   <% end %>
-  <%= f.primary 'Update Profile'%>
+  <%= f.primary 'Save Profile'%>
 
 <% end %>
 
