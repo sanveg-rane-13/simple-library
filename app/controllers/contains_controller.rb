@@ -1,6 +1,6 @@
 class ContainsController < ApplicationController
   before_action :set_contain, only: [:show, :edit, :update, :destroy, :show_lib_book]
-  before_action :set_user, only: [:edit, :new]
+  before_action :set_user, only: [:edit, :new, :create]
 
   # GET /contains
   # GET /contains.json
