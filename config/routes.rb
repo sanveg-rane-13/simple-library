@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       post "return_book"
       post "hold_book"
       delete "rem_hold_book"
+      get "manage_book_reqs"
     end
   end
 
