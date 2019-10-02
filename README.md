@@ -28,7 +28,7 @@ A Library management system for students to borrow books.
 2. Admin can login via email and password from the signin page.
 3. After logging in, admin can perform the following operations from the homepage:
 	
-	**View Libraries** - All the libraries avaliable in the DB. Admin can add/delete them
+	**View Libraries** - All the libraries avaliable in the system
   
 	**Add New Library** - Add a new library in the system
 	
