@@ -64,7 +64,7 @@ class RequestsController < ApplicationController
   #GET view held books
   def view_hold
     @current_user = current_user
-    @request = Request.joins(:user, :book).select(:name, :title)
+    @hold_requests = Request.get_all_holds_for_lib(@current_user.library_id)
   end
 
   # GET get all requests made by the user
