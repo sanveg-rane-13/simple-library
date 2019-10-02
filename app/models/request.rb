@@ -22,6 +22,7 @@ class Request < ApplicationRecord
       return Request.new({ library_id: lib_book.library_id,
                           user_id: user_id,
                           book_id: lib_book.book_id,
+                          special_approval: false,
                           start: Time.now })
     end
   end
