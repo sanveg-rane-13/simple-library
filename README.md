@@ -2,7 +2,7 @@
 
 A Library management system for students to borrow books.
 
-### OODD Team - t123
+### CSC-517: Team - t123
 <hr>
 
 ## This document explains all the functionalities with the workflow. 
