@@ -30,7 +30,7 @@
 
   <% if is_a_student_logged? %>
   <%= f.select :study_level, [["Undergraduate","U"],["Master","M"],["PHD", "P"]] , required: true %>
-  <%= f.select :university, Library.all.collect{ |e| [e.university, e.university] } , required: true%>
+  <%= f.select :university, Library.all.collect{ |e| [e.university, e.university] }.uniq , required: true%>
   <% end %>
 
   <% if is_a_librarian_logged? %>

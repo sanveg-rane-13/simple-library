@@ -1,5 +1,4 @@
 class RequestsController < ApplicationController
-  before_action :set_request, only: [:show, :edit, :update, :destroy]
   before_action :set_lib_book, only: [:check_out_book, :return_book, :hold_book, :rem_hold_book]
 
   # POST - Checkout request on book
@@ -66,7 +65,7 @@ class RequestsController < ApplicationController
   end
 
   # GET get all requests made by the user
-  def manage_book_reqs
+  def manage_req
     @user_book_reqs = Request.where({ user_id: current_user.id })
   end
 

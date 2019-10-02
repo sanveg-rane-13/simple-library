@@ -26,7 +26,6 @@ Rails.application.routes.draw do
       post "return_book"
       post "hold_book"
       delete "rem_hold_book"
-      get "manage_book_reqs"
     end
   end
 
@@ -42,10 +41,11 @@ Rails.application.routes.draw do
     end
   end
 
-  # custom routes
+  # custom get routes
   get "approvals", to: "static_pages#approvals"
   get "user_libs", to: "libraries#user_libs"
   get "view_hold", to: "requests#view_hold"
+  get "manage_req", to: "requests#manage_req"
 
   root "static_pages#home"
 end
