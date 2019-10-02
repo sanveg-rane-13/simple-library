@@ -27,7 +27,7 @@
                     <%= link_to 'Return', return_book_requests_path(lib_book_id: @contain), method: :post%></li><%end%>
 
                 <%if @show_cancel_hold%><li class="list-group-item btn">
-                    <%= link_to 'Cancel Hold', rem_hold_book_requests_path(lib_book_id: @contain), method: :delete%>
+                    <%= link_to 'Cancel Hold', rem_hold_book_requests_path(lib_book_id: @contain), method: :post%>
                 </li><%end%>
 
                 <!-- <%if !@bookmark%><li class="list-group-item btn">

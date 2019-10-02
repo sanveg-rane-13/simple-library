@@ -29,7 +29,7 @@ Rails.application.routes.draw do
       post "check_out_book"
       post "return_book"
       post "hold_book"
-      delete "rem_hold_book"
+      post "rem_hold_book"
     end
   end
 
