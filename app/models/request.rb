@@ -4,6 +4,7 @@ class Request < ApplicationRecord
 
   validates_uniqueness_of :book_id, :scope => [:user_id, :start]
 
+  # ========= Methods to create or update Requests ===========
   # create new request object to persist
   # NOTE: persist the lib_book object as well
   def self.new_checkout_obj(lib_book, user_id)
@@ -55,11 +56,13 @@ class Request < ApplicationRecord
                           book_id: lib_book.book_id }).where.not(hold: nil).first
   end
 
+  # ========= Methods check existing Requests ===========
+
   # check if current user has checked out the same book from same library
   def self.is_checked_out(lib_book, user_id)
     request = Request.where({ user_id: user_id,
                              library_id: lib_book.library_id,
-                             book_id: lib_book.book_id }).where(end: nil).where.not(start: nil)
+                             book_id: lib_book.book_id }).where({ end: nil, special_approval: false }).where.not(start: nil)
     return !request.empty?
   end
 
@@ -79,6 +82,13 @@ class Request < ApplicationRecord
     return !request.empty?
   end
 
+  def self.is_special_approval_pending(lib_book, user_id)
+    request = Request.where({ user_id: user_id,
+                             library_id: lib_book.library_id,
+                             book_id: lib_book.book_id }).where(special_approval: true)
+    return !request.empty?
+  end
+
   # get the hold count for particular book
   def self.get_hold_count(lib_book)
     return Request.where({ library_id: lib_book.library_id,
@@ -86,11 +96,18 @@ class Request < ApplicationRecord
              .where.not(hold: nil).count
   end
 
+  def self.get_special_approvals_from_lib(library_id)
+    return Request.where({ library_id: library_id, special_approval: true })
+  end
+
+  # get particular request object
   def self.get_request(lib_book, user_id)
     return Request.where({ user_id: user_id,
                           library_id: lib_book.library_id,
                           book_id: lib_book.book_id }).first
   end
+
+  # ========= Instance methods ===========
 
   # get the string value of borrow date of a book
   def book_checkout_date

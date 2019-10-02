@@ -21,6 +21,10 @@ Rails.application.routes.draw do
   end
 
   resources :requests do
+    member do
+      post "approve_spl"
+      post "decline_spl"
+    end
     collection do
       post "check_out_book"
       post "return_book"
@@ -46,6 +50,7 @@ Rails.application.routes.draw do
   get "user_libs", to: "libraries#user_libs"
   get "view_hold", to: "requests#view_hold"
   get "manage_req", to: "requests#manage_req"
+  get "spl_book_aprvl", to: "requests#spl_book_aprvl"
 
   root "static_pages#home"
 end
