@@ -20,7 +20,7 @@ class RequestsController < ApplicationController
   # POST - Return a checked-out book
   # TODO: Check if any books on hold
   def return_book
-    request = Request.new_return_request_obj(@lib_book, current_user.id)
+    request = Request.get_return_request_obj(@lib_book, current_user.id)
 
     respond_to do |format|
       if request.update({ end: request.end }) && @lib_book.save
@@ -48,7 +48,7 @@ class RequestsController < ApplicationController
     end
   end
 
-  # POST - Delete a book hold request
+  # DELETE - Delete a book hold request
   def rem_hold_book
     request = Request.new_cancel_hold_request_object(@lib_book, current_user.id)
 
@@ -63,6 +63,11 @@ class RequestsController < ApplicationController
   def view_hold
     @current_user = current_user
     @request = Request.joins(:user, :book).select(:name, :title)
+  end
+
+  # GET get all requests made by the user
+  def manage_book_reqs
+    @user_book_reqs = Request.where({ user_id: current_user.id })
   end
 
   private

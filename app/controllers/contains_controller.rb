@@ -1,8 +1,6 @@
 class ContainsController < ApplicationController
   before_action :set_contain, only: [:show, :edit, :update, :destroy, :show_lib_book]
-
-  # TODO: directly add book to library link from lib_books
-
+  
   # GET /contains
   # GET /contains.json
   def index
@@ -91,7 +89,7 @@ class ContainsController < ApplicationController
     @show_cancel_hold = Request.is_on_hold(@contain, current_user.id)
 
     # book mark book
-    @bookmarked = Request.is_bookmarked(@contain, current_user.id)
+    # @bookmark = Request.is_bookmarked(@contain, current_user.id)
 
     # show return date if book is checked out
     if @show_return

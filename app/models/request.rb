@@ -27,10 +27,11 @@ class Request < ApplicationRecord
 
   # get the request object to delete on return
   # NOTE: persist the lib_book object as well
-  def self.new_return_request_obj(lib_book, user_id)
+  def self.get_return_request_obj(lib_book, user_id)
     request = Request.where({ library_id: lib_book.library_id,
                              user_id: user_id,
-                             book_id: lib_book.book_id }).where.not(start: nil).first
+                             book_id: lib_book.book_id })
+      .where(end: nil).where.not(start: nil).first
     if !request.nil?
       lib_book.increase_count
       request.end = Time.now
@@ -125,5 +126,33 @@ class Request < ApplicationRecord
     end
 
     return late_fee
+  end
+
+  # get status of the book
+  def get_status_message
+    message = ""
+
+    # if book is checked out and returned
+    if (!self[:start].nil? && !self[:end].nil?)
+      return message.concat("Returned on ").concat(self[:end].to_date.strftime("%b-%d-%Y"))
+    end
+
+    # if book is checked out
+    if (!self[:start].nil? && self[:end].nil?)
+      return message.concat("Checked out on ")
+                    .concat(self[:start].to_date.strftime("%b-%d-%Y"))
+                    .concat(" - Return Date: ")
+                    .concat(self.book_return_date)
+    end
+
+    # if book is pending special approval
+    if (self[:special_approval])
+      return message.concat("Waiting Librarian approval for checkout")
+    end
+
+    # if book is set on hold
+    if (!self[:hold].nil?)
+      return message.concat("Book on hold")
+    end
   end
 end
