@@ -1,5 +1,5 @@
 <h3>Add Books to Library</h3>
 
-<%= render 'form', contain: @contain, form_url: contains_path, submit_label: 'Add Book to Library' %>
+<%= render 'form', contain: @contain, user: @current_user, form_url: contains_path, submit_label: 'Add Book to Library' %>
 
 <%= link_to 'Back', "/" %>

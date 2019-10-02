@@ -1,19 +1,11 @@
 class LibrariesController < ApplicationController
   before_action :set_library, only: [:show, :edit, :update, :destroy, :lib_books]
-  before_action :init_libraries, only: [:user_libs]
+  before_action :init_libraries, only: [:user_libs, :index]
   before_action :init_current_user, only: [:lib_books, :user_libs]
 
   # GET /libraries
   # GET /libraries.json
   def index
-    @current_user = current_user
-    if (@current_user.student)
-      @libraries = Library.get_lib_by_univ_name(@current_user.university)
-    elsif (@current_user.librarian)
-      @libraries = Library.get_by_lib_id(@current_user.library_id)
-    elsif (@current_user.admin)
-      @libraries = Library.all
-    end
   end
 
   # GET /libraries/1
@@ -72,13 +64,6 @@ class LibrariesController < ApplicationController
 
   # GET
   def user_libs
-    if (@current_user.student)
-      @libraries = Library.get_lib_by_univ_name(@current_user.university)
-    elsif (@current_user.librarian)
-      @libraries = Library.get_by_lib_id(@current_user.library_id)
-    elsif (@current_user.admin)
-      @libraries = Library.all
-    end
   end
 
   # GET - books in a library
@@ -95,7 +80,7 @@ class LibrariesController < ApplicationController
 
   # Empty list of libraries before fetching
   def init_libraries
-    @libraries = []
+    @libraries = Library.get_lib_list_for_user(@current_user)
   end
 
   def init_current_user

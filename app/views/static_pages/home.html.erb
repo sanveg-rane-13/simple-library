@@ -1,5 +1,9 @@
 <h2>Welcome to Simple-Library</h2>
 
+<% if !@current_user %>
+
+<% end %>
+
 <% if @current_user.student? %>
 <ul class="list-group">
     <% if @current_user.university == nil%>
@@ -32,12 +36,12 @@
     <li class="list-group-item">View all books</li>
     <!-- Add Books -->
     <li class="list-group-item"><%= link_to 'Add Books', '/books/new' %></li>
-    <!-- View Special approvals -->
-    <li class="list-group-item">Approve special books</li>
     <!-- View overdue students and fines -->
     <li class="list-group-item">View Overdues and Fines</li>
     <!-- View Hold requests-->
     <li class="list-group-item"><%= link_to 'View Hold Requests', view_hold_path %></li>
+    <!-- Add Book to Library -->
+    <li class="list-group-item"><%= link_to 'Add Book to Library', new_contain_path %></li>
     <!-- List of user requests pending approval -->
     <li class="list-group-item"><%= link_to 'Approve Special Requests', spl_book_aprvl_path %></li>
 </ul>
