@@ -1,24 +1,24 @@
-<h1>Hold Requests</h1>
+<h3>Hold Requests</h3>
 
-<table>
+<table class="table">
   <thead>
     <tr>
+      <th>Student</th>
+      <th>Book</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% if @requests != nil %>
-        <% @requests.each do |request| %>
-            <% if request.library_id == curent_user.library_id and request.hold == true %>
-                <tr>
-                    <td>request.name</td>
-                    <td>request.title</td>
-                </tr>
-            <% end %>
-        <% end %>
+    <% if @hold_requests != nil %>
+    <% @hold_requests.each do |req| %>
+    <tr>
+      <td><%=User.find(req.user_id).name%></td>
+      <td><%=Book.find(req.book_id).title%></td>
+    </tr>
+    <% end %>
     <% else %>
-            no hold requests
+    no hold requests
     <% end %>
   </tbody>
 </table>

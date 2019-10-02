@@ -107,6 +107,10 @@ class Request < ApplicationRecord
                           book_id: lib_book.book_id }).first
   end
 
+  def self.get_all_holds_for_lib(library_id)
+    return Request.where(library_id: library_id).where.not(hold: nil)
+  end
+
   # ========= Instance methods ===========
 
   # get the string value of borrow date of a book
