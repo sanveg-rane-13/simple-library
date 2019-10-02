@@ -1,4 +1,9 @@
-# Simple Library Management System
+# Simple-Library
+
+A Library management system for students to borrow books.
+
+### OODD Team - t123
+<hr>
 
 ## This document explains all the functionalities with the workflow. 
 
@@ -6,32 +11,33 @@
 
 ##### https://sheltered-anchorage-86797.herokuapp.com
 
-##### Run project in local:
+  
+##### Admin details:
+  - Admin : admin@simple-lib.com
+  - Pass  : admin
+  
+ ##### Run project in local:
   - Clone the repo
   - cd into simple-library
   - run command - bundle install
   - run command - rake db:migrate
   - run command - rails s
-  
-##### Admin details:
-  - Admin : admin@simple-lib.com
-  - Pass  : admin
 
 ### Web Application can be viewed in 3 roles:
 1. Admin
-2. Realtor
-3. House Hunter
+2. Student
+3. Librarian
 
 
 ### Admin:
 
-1.	Web Application is preconfigured with an admin account. The admin credentials are provided above.
-2.	Admin can login via email and password from the signin page.
-3.	After logging in, admin can perform the following operations from the homepage:
+1. Web Application is preconfigured with an admin account. The admin credentials are provided above.
+2. Admin can login via email and password from the signin page.
+3. After logging in, admin can perform the following operations from the homepage:
 	
-	**List All Libraries** - All the libraries avaliable in the DB. Admin can add/delete them.
+**List All Libraries** - All the libraries avaliable in the DB. Admin can add/delete them.
   
-  **List All Books** - All the Books avaliable in the DB. Admin can add/delete them.
+**List All Books** - All the Books avaliable in the DB. Admin can add/delete them.
 	
 	**List All Librarians** - All the Librarians listed on the portal will be displayed with the relevant details. The Admin will approve a librarian file.
 	
@@ -40,7 +46,6 @@
 	**Add New Library** - Admin can create a new Library.
 	
 4.	Admin can also edit his profile but will not be able to delete the account.
-
 5.	Admin can logout using Logout option given in top-right corner.
 
 
