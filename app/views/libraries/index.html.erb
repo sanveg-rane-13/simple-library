@@ -8,7 +8,7 @@
       <th>Name</th>
       <th>University</th>
       <th>Location</th>
-      <th colspan="6"></th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -23,7 +23,6 @@
       <td><%= link_to 'View Books', lib_books_library_path(library)%></td>
       <% if not @current_user.student? %>
       <td><%= link_to 'Edit', edit_library_path(library) %></td>
-      <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <% end %>
 
     </tr>
