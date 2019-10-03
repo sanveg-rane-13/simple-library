@@ -65,7 +65,7 @@
           <td><%= contain.language %></td>
 
           <% if @current_user.student? %>
-            <td><%= link_to 'Show Book', show_lib_book_contain_path(contain.book_id) %></td>
+            <td><%= link_to 'Show Book', show_lib_book_contain_path(contain.id) %></td>
 
           <% else %>
             <td><%= link_to 'Show', contain %></td>
