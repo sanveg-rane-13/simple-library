@@ -74,3 +74,15 @@ yarn-debug.log*
 
 Gemfile.lock
 .DS_Store
+.idea/inspectionProfiles/Project_Default.xml
+.idea/dataSources/77ee61db-2032-47eb-8726-62b3e15b3bd9.xml
+.idea/vcs.xml
+.idea/simple-library.iml
+.idea/modules.xml
+.idea/misc.xml
+.idea/dataSources.xml
+.idea/.gitignore
+.gitignore
+.rakeTasks
+.generators
+.gitignore
