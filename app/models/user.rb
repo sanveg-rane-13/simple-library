@@ -34,7 +34,7 @@ class User < ApplicationRecord
   # get max allowed books as per education level
   def is_max_allowed_reached
     borrowed_books = Request.where({ user_id: self[:id], end: nil }).where.not(start: nil).count
-    allowed = (self[:study_level] == "U") ? 2 : ((self[:study_level] == "M") ? 4 : ((self[:study_level] == "P") ? 6 : 8))
+    allowed = (self[:study_level] == "U") ? 2 : ((self[:study_level] == "M") ? 4 : ((self[:study_level] == "P") ? 6 : 2))
     borrowed_books >= allowed
   end
 end
