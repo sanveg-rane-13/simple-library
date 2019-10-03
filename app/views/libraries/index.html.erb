@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h3>Libraries</h3>
 
 <table class="table">
@@ -23,6 +21,7 @@
       <td><%= link_to 'View Books', lib_books_library_path(library)%></td>
       <% if not @current_user.student? %>
       <td><%= link_to 'Edit', edit_library_path(library) %></td>
+      <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <% end %>
 
     </tr>

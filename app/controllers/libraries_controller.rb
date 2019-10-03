@@ -54,12 +54,19 @@ class LibrariesController < ApplicationController
 
   # DELETE /libraries/1
   # DELETE /libraries/1.json
+  # Deleting all requests made on books in the library and the associations with all librarians
   def destroy
-    # @library.destroy
-    # respond_to do |format|
-    #   format.html { redirect_to libraries_url, notice: "Library was successfully destroyed." }
-    #   format.json { head :no_content }
-    # end
+    librarians = User.where(library_id: @library.id)
+
+    respond_to do |format|
+      if Request.where(library_id: @library.id).each { |r| r.destroy } && librarians.update(library_id: nil, library: nil) && @library.destroy
+        format.html { redirect_to libraries_url, notice: "Library was successfully destroyed." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @library, alert: "Error deleting library" }
+        format.json { render json: @library.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET
