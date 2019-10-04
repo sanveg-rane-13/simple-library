@@ -15,6 +15,7 @@
     </div>
   </div>
 
+  <%if !is_a_admin_logged?%>
   <div class="row">
     <div class="col-md-6">
       <%= f.password_field :password, autocomplete: "new-password" %>
@@ -29,6 +30,7 @@
       <%= f.password_field :current_password, autocomplete: "current-password" %>
     </div>
   </div>
+  <%end%>
 
   <% if is_a_student_logged? %>
   <%= f.select :study_level, [["Undergraduate","U"],["Master","M"],["PHD", "P"]] , required: true %>
