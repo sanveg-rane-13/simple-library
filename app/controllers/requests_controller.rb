@@ -24,6 +24,12 @@ class RequestsController < ApplicationController
   def return_book
     request = Request.get_return_request_obj(@lib_book, current_user.id)
 
+    # return the book to first user with hold request
+    rold_req = Request.get_first_hold_user(@lib_book)
+    if !rold_req.nil?
+      rold_req.update_hold_to_checkout(@lib_book)
+    end
+
     respond_to do |format|
       if request.update({ end: request.end }) && @lib_book.save
         format.html { redirect_to show_lib_book_contain_path(@lib_book), notice: "Book returned!" }
