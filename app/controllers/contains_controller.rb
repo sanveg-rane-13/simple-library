@@ -6,15 +6,7 @@ class ContainsController < ApplicationController
   # GET /contains.json
   def index
     @current_user = current_user
-
-    if params[:search].blank?
-      @contains = Contain.joins(:book, :library).select("*")
-    else
-      @contains = Contain.joins(:book, :library).select("*")
-        .where(["title LIKE ?", "%#{params[:title]}%"])
-        .where(["author LIKE ?", "%#{params[:author]}%"])
-        .where(["published LIKE ?", "%#{params[:published]}%"])
-    end
+    @contains = Contain.get_search_object(params[:search], params[:title], params[:author], params[:published], current_user)
   end
 
   # GET /contains/1
