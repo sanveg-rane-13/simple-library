@@ -5,7 +5,9 @@
 <div class="container-fluid">
     <div class="book-summ col-md-5">
         <div class="card img-details">
-            Book cover image goes here
+        <%if !@book_accessed.Image.blank?%>
+        <%= image_tag(url_for(@book_accessed.Image), :size => "450x250") %>
+        <%end%>
         </div>
         <div class="card summary-details">
             <p><%=@book_accessed.summary%></p>
