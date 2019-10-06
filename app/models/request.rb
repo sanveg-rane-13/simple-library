@@ -64,6 +64,7 @@ class Request < ApplicationRecord
     request = Request.where({ user_id: user_id,
                              library_id: lib_book.library_id,
                              book_id: lib_book.book_id }).where({ end: nil, special_approval: false }).where.not(start: nil)
+
     return !request.empty?
   end
 
@@ -110,6 +111,12 @@ class Request < ApplicationRecord
 
   def self.get_all_holds_for_lib(library_id)
     return Request.where(library_id: library_id).where.not(hold: nil)
+  end
+
+  def self.get_first_hold_user(lib_book)
+    return Request.where(library_id: lib_book.library_id, book_id: lib_book.book_id)
+                  .where.not(hold: nil)
+                  .order(:hold).first
   end
 
   # ========= Instance methods ===========
@@ -175,6 +182,21 @@ class Request < ApplicationRecord
     # if book is set on hold
     if (!self[:hold].nil?)
       return message.concat("Book on hold")
+    end
+  end
+
+  # change status of book from hold to checked_out
+  # NOTE: persist the lib_book object as well
+  # TODO: Send email
+  def update_hold_to_checkout(lib_book)
+    book = Book.find(self[:book_id])
+
+    if book.is_special?
+      self.update({ hold: nil, special_approval: true })
+    else
+      if self.update({ hold: nil, start: Time.now, special_approval: false })
+        lib_book.reduce_count
+      end
     end
   end
 end
