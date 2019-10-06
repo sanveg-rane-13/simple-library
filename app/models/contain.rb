@@ -34,6 +34,21 @@ class Contain < ApplicationRecord
     return contain.count == 0 ? true : false
   end
 
+  # return contain rows containing the given parameters
+  def self.get_search_object(search, title, author, published, current_user)
+    libraries = Library.select(:id).where({ university: current_user.university })
+
+    if search.blank?
+      @contains = Contain.where({ library_id: libraries })
+      
+    else
+      books = Book.select(:id).where(['title LIKE ?', "%#{title}%"])
+                              .where(['author LIKE ?', "%#{author}%"])
+                              .where(['published LIKE ?', "%#{published}%"])                        
+      @contains = Contain.where({ library_id: libraries }).where({ book_id: books })
+    end
+  end
+
   # reduce count when checked out
   def reduce_count
     count = self[:count]
