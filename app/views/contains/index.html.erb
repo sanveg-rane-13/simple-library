@@ -51,31 +51,34 @@
   </thead>
   <tbody>
     <% @contains.each do |contain| %>
-      <% if contain.university == current_user.university %>
         <tr>
-          <td><%= contain.title %></td>
-          <td><%= contain.author %></td>
-          <td><%= contain.name %></td>
-          <td><%= contain.subject %></td>
-          <td><%= contain.isbn %></td>
-          <td><%= contain.is_special %></td>
-          <td><%= contain.summary %></td>
-          <td><%= contain.edition %></td>
-          <td><%= contain.published %></td>
-          <td><%= contain.language %></td>
+          <% book = Book.find(contain.book_id) %>
+          <% library = Library.find(contain.library_id) %>
+          <td><%= book.title %></td>
+          <td><%= book.author %></td>
+          <td><%= library.name %></td>
+          <td><%= book.subject %></td>
+          <td><%= book.isbn %></td>
+          <td><%= book.is_special %></td>
+          <td><%= book.summary %></td>
+          <td><%= book.edition %></td>
+          <td><%= book.published %></td>
+          <td><%= book.language %></td>
 
           <% if @current_user.student? %>
-            <td><%= link_to 'Show Book', show_lib_book_contain_path(contain.id) %></td>
+            <td><%= link_to 'Show Book', show_lib_book_contain_path(contain) %></td>
 
           <% else %>
             <td><%= link_to 'Show', contain %></td>
             <td><%= link_to 'Edit', edit_contain_path(contain) %></td>
           <% end %>
         </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
 <%= link_to 'Home', "/" %>
+
+
+
