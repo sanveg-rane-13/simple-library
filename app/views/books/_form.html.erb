@@ -13,7 +13,8 @@
     <%= f.text_field :language, autocomplete: "language"  %>
     <%= f.text_field :author, autocomplete: "author", :required => true  %>
     <%= f.text_field :edition, autocomplete: "edition"  %>
-
+    <%= f.label "Cover Image" %>
+    <%= f.file_field :Image %>
     <%= f.date_select :published %>
     <%= f.form_group do %>
     <%= f.check_box :is_special, label: "Special book" %>
