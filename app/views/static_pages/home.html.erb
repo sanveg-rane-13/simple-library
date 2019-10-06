@@ -52,18 +52,30 @@
 <% end %>
 
 <% if @current_user.admin? %>
+<p class="label-info">Browse</p>
 <ul class="list-group">
     <!-- View all libraries -->
     <li class="list-group-item"><%= link_to 'View Libraries', user_libs_path %></li>
-    <!-- Add Libraries -->
-    <li class="list-group-item"><%= link_to 'Add New Library', new_library_path %></li>
     <!-- View all libraries -->
     <li class="list-group-item"><%= link_to 'View Books', books_path %></li>
+    <!-- View all users -->
+    <li class="list-group-item">View Users</li>
+</ul>
+<br>
+<p class="label-info">Actions</p>
+<ul class="list-group">
+    <!-- View list of users -->
+    <li class="list-group-item"><%= link_to 'Approve Librarian', approvals_url %></li>
+    <!-- Add Libraries -->
+    <li class="list-group-item"><%= link_to 'Add New Library', new_library_path %></li>
     <!-- Add Books -->
     <li class="list-group-item"><%= link_to 'Add New Book', new_book_path %></li>
     <!-- Add Book to Library -->
     <li class="list-group-item"><%= link_to 'Add Book to Library', new_contain_path %></li>
-    <!-- View list of users -->
-    <li class="list-group-item"><%= link_to 'View Librarians to Approve', approvals_url %></li>
+    <!-- Add new Student -->
+    <li class="list-group-item">Add New Student</li>
+    <!-- Add librarian -->
+    <li class="list-group-item">Add New Librarian</li>
+
 </ul>
 <% end %>
