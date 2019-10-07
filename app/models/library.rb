@@ -3,7 +3,8 @@ class Library < ApplicationRecord
   has_many :books, through: :contains, dependent: :destroy
 
   def self.get_lib_name(library_id)
-    Library.select(:name).find_by(id: library_id).name
+    lib = Library.select(:name).find_by(id: library_id)
+    !lib.nil? ? lib.name : "No Library"
   end
 
   def self.get_by_lib_id(library_id)

@@ -1,0 +1,55 @@
+<h3>System Users</h3>
+
+<br><br>
+
+<p class="label-info">Students</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>University</th>
+            <th>Study Level</th>
+            <th colspan="2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @students.each do |student| %>
+        <tr>
+            <td><%= student.name %></td>
+            <td><%= student.email %></td>
+            <td><%= student.university %></td>
+            <td><%= student.study_level %></td>
+            <% if @current_user.admin? %>
+            <td>Delete Student</td>
+            <% end %>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<br>
+<p class="label-info">Librarians</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Library</th>
+            <th colspan="1"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @librarians.each do |librarian| %>
+        <tr>
+            <td><%= librarian.name %></td>
+            <td><%= librarian.email %></td>
+            <td><%= Library.get_lib_name(librarian.library_id) %></td>
+
+            <% if @current_user.admin? %>
+            <td>Delete Librarian</td>
+            <% end %>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
