@@ -1,0 +1,37 @@
+<h3>Borrow History</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Book</th>
+      <th>Status</th>
+      <%if @current_user.admin?%>
+        <th>Library</th>
+        <th>University</th>
+      <% end %>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @requests.each do |request| %>
+    <tr>
+      <% student = User.find(request.user_id) %>
+      <% book = Book.find(request.book_id) %>
+      <% library = Library.find(request.library_id) %>
+      <td><%=student.name%></td>
+      <td><%=book.title%></td>
+      <td><%=request.get_status_message%>
+    
+      <%if @current_user.admin?%>
+        <td><%=library.name%></td>
+        <td><%=student.university%></td>
+      <% end %>
+
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -51,6 +51,8 @@ Rails.application.routes.draw do
   get "view_hold", to: "requests#view_hold"
   get "manage_req", to: "requests#manage_req"
   get "spl_book_aprvl", to: "requests#spl_book_aprvl"
+  get "view_borrow_history", to: "requests#view_borrow_history"
+  get "view_overdue_fine", to: "requests#view_overdue_fine"
 
   root "static_pages#home"
 end

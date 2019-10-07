@@ -38,8 +38,10 @@
     <li class="list-group-item"><%= link_to 'Add Books', '/books/new' %></li>
     <!-- Add Book to Library -->
     <li class="list-group-item"><%= link_to 'Add Book to Library', new_contain_path %></li>
+    <!-- View Borrow History -->
+    <li class="list-group-item"><%= link_to 'View Borrow History', view_borrow_history_path %></li>
     <!-- View overdue students and fines -->
-    <li class="list-group-item">View Overdues and Fines</li>
+    <li class="list-group-item"><%= link_to 'View Overdue Students and Fine', view_overdue_fine_path %></li>
     <!-- View Hold requests-->
     <li class="list-group-item"><%= link_to 'View Hold Requests', view_hold_path %></li>
     <!-- Add Book to Library -->
@@ -60,6 +62,10 @@
     <li class="list-group-item"><%= link_to 'View Books', books_path %></li>
     <!-- View all users -->
     <li class="list-group-item">View Users</li>
+    <!-- View Borrow History -->
+    <li class="list-group-item"><%= link_to 'View Borrow History', view_borrow_history_path %></li>
+    <!-- View overdue students and fines -->
+    <li class="list-group-item"><%= link_to 'View Overdue Students and Fine', view_overdue_fine_path %></li>
 </ul>
 <br>
 <p class="label-info">Actions</p>

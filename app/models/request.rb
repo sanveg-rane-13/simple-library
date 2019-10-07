@@ -112,6 +112,33 @@ class Request < ApplicationRecord
     return Request.where(library_id: library_id).where.not(hold: nil)
   end
 
+  def self.get_borrow_history_lib(current_user)
+    return Request.where({library_id: current_user.library_id})
+  end
+
+
+
+  def self.get_student_overdue_fine(current_user)
+    student_fines = {}
+    if current_user.admin?
+      requests = Request.all
+    elsif current_user.librarian?
+      requests = Request.all.where({ library_id: current_user.library_id })
+    end
+
+    requests.each do |request|
+      if student_fines.key?(request.user_id)
+        student_fines[request.user_id] += request.get_late_fee
+      else
+        student_fines[request.user_id] = request.get_late_fee
+      end
+    end
+    
+    return student_fines
+  end
+
+
+
   # ========= Instance methods ===========
 
   # get the string value of borrow date of a book
@@ -121,6 +148,14 @@ class Request < ApplicationRecord
       return start_date.to_date.strftime("%b-%d-%Y")
     end
   end
+  
+  def book_returned_date
+    end_date = self[:end]
+    if !end_date.nil?
+      return end_date.to_date.strftime("%b-%d-%Y")
+    end
+  end
+  
 
   # get the string value of last date to return a book
   def book_return_date

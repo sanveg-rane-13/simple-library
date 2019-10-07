@@ -27,6 +27,7 @@ class StaticPagesController < ApplicationController
   def help
   end
 
+
   private
 
   def set_user
