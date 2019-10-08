@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(version: 2019_10_05_172444) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "library_books", force: :cascade do |t|
+    t.integer "count"
+    t.integer "library_id"
+    t.integer "book_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_library_books_on_book_id"
+    t.index ["library_id"], name: "index_library_books_on_library_id"
+  end
+
   create_table "requests", force: :cascade do |t|
     t.datetime "start"
     t.datetime "end"

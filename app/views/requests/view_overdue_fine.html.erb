@@ -12,14 +12,20 @@
   </thead>
 
   <tbody>
+    <% flag = 0 %>
     <% @objects.each do |student_id, fine| %>
     <tr>
-      <% student = User.find(student_id) %>
-      <td><%=student.name%></td>
-      <td><%=student.university%></td>
-      <td><%=fine%></td
-
+      <%if fine > 0 %>
+        <% flag = 1 %>
+        <% student = User.find(student_id) %>
+        <td><%=student.name%></td>
+        <td><%=student.university%></td>
+        <td><%=fine%></td
+      <% end %>
     </tr>
+    <% end %>
+    <% if flag == 0 %>
+        No Student with Overdue Fine
     <% end %>
   </tbody>
 </table>
