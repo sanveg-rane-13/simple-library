@@ -34,11 +34,13 @@ A Library management system for students to borrow books.
 	
 	**View Books** - View all books available in the system
 	
-	**Add New Book**- Add a new book in the system
+	**Add New Book**- Add a new book in the system - same book cannot be added twice, use Update Book count feature to change number of books at particular library
 	
 	**Add Book to Library** - Add a book in library with correspondin count
 	
 	**View Librarians to Approve** - View list of new librarians to approve
+	
+	**Update book count** - Navigate to View Libraries -> View Books -> Edit Count. Change the count from the form displayed
 	
 4.	Admin can also edit his profile but will not be able to delete the account.
 5.	Admin can logout using Logout option given in top-right corner.
@@ -80,8 +82,6 @@ A Library management system for students to borrow books.
 6.	They can also delete their profile whenever they want.
 
 #### Pending features
-- Deleteing a library or book - Users (admin included) cannot delete a library or book
-- Book cover image not yet visible to users
 - Checkout book for hold student after available with email notification
 - Show borrow history and overdue fines to librarian
 

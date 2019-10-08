@@ -6,8 +6,6 @@ Rails.application.routes.draw do
   resources :requests
   resources :contains
 
-  get "users/new"
-
   get "authentication/new"
   get "authentication/edit"
 
@@ -15,6 +13,11 @@ Rails.application.routes.draw do
   get "static_pages/help"
 
   devise_for :users, controllers: { registrations: "registrations" }
+  get "users/new"
+  # scope "admin" do
+  #   delete "users/:id", to: "users#destroy"
+  # end
+  match "users/:id" => "users#destroy", :via => :delete, :as => :admin_destroy_user
 
   resources :static_pages do
     put "approve_librarian", on: :member
@@ -53,6 +56,7 @@ Rails.application.routes.draw do
   get "spl_book_aprvl", to: "requests#spl_book_aprvl"
   get "view_borrow_history", to: "requests#view_borrow_history"
   get "view_overdue_fine", to: "requests#view_overdue_fine"
+  get "view_users", to: "requests#view_users"
 
   root "static_pages#home"
 end

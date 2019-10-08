@@ -20,9 +20,14 @@ class RequestsController < ApplicationController
   end
 
   # POST - Return a checked-out book
-  # TODO: Check if any books on hold
   def return_book
     request = Request.get_return_request_obj(@lib_book, current_user.id)
+
+    # return the book to first user with hold request
+    rold_req = Request.get_first_hold_user(@lib_book)
+    if !rold_req.nil?
+      rold_req.update_hold_to_checkout(@lib_book)
+    end
 
     respond_to do |format|
       if request.update({ end: request.end }) && @lib_book.save
@@ -71,6 +76,13 @@ class RequestsController < ApplicationController
   def manage_req
     @user_book_reqs = Request.where({ user_id: current_user.id })
   end
+
+  # GET get all requests made by particular user
+  # def manage_student_req(user_id)
+  #   if current_user.admin?
+  #     @user_book_reqs = Request.where({ user_id: user_id })
+  #   end
+  # end
 
   # GET all pending special approvals on the books in the library
   def spl_book_aprvl
@@ -126,6 +138,16 @@ class RequestsController < ApplicationController
   def view_overdue_fine
     @current_user = current_user
     @objects = Request.get_student_overdue_fine(current_user)
+  end
+  
+  # GET show list of all users to librarian
+  def view_users
+    @current_user = current_user
+
+    if (@current_user.admin?)
+      @students = User.get_students
+      @librarians = User.get_librarians
+    end
   end
 
   private
