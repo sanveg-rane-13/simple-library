@@ -20,7 +20,6 @@ class RequestsController < ApplicationController
   end
 
   # POST - Return a checked-out book
-  # TODO: Check if any books on hold
   def return_book
     request = Request.get_return_request_obj(@lib_book, current_user.id)
 
@@ -78,6 +77,13 @@ class RequestsController < ApplicationController
     @user_book_reqs = Request.where({ user_id: current_user.id })
   end
 
+  # GET get all requests made by particular user
+  # def manage_student_req(user_id)
+  #   if current_user.admin?
+  #     @user_book_reqs = Request.where({ user_id: user_id })
+  #   end
+  # end
+
   # GET all pending special approvals on the books in the library
   def spl_book_aprvl
     @pending_aprvl = Request.get_special_approvals_from_lib(current_user.library_id)
@@ -117,6 +123,16 @@ class RequestsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to spl_book_aprvl_path, notice: "Request declined" }
       format.json { head :no_content }
+    end
+  end
+
+  # GET show list of all users to librarian
+  def view_users
+    @current_user = current_user
+
+    if (@current_user.admin?)
+      @students = User.get_students
+      @librarians = User.get_librarians
     end
   end
 
