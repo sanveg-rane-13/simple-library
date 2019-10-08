@@ -1,0 +1,42 @@
+<h3>Checked Out Books</h3>
+<br>
+<% @objects.each do |student_id, requests| %>
+    <% student = User.find(student_id) %>
+    <h5><%= student.name %>
+    <table class="table">
+    <thead>
+        <tr>
+        <th>Book</th>
+        <th>Details</th>
+        <%if @current_user.admin?%>
+            <th>Library</th>
+            <th>University</th>
+        <% end %>
+        <th colspan="3"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% requests.each do |request| %>
+        <tr>
+        <% book = Book.find(request.book_id) %>
+        <% library = Library.find(request.library_id) %>
+        <td><%=book.title%></td>
+        <td><%=request.get_status_message%>
+        
+        <%if @current_user.admin?%>
+            <td><%=library.name%></td>
+            <td><%=student.university%></td>
+        <% end %>
+
+        </tr>
+        <% end %>
+    </tbody>
+    </table>
+
+    <br>
+    <br><br>
+    
+<% end %>
+
+<%= link_to 'Home', "/" %>

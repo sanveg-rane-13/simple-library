@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   get "view_borrow_history", to: "requests#view_borrow_history"
   get "view_overdue_fine", to: "requests#view_overdue_fine"
   get "view_users", to: "requests#view_users"
+  get "view_checked_out_books", to: "requests#view_checked_out_books"
 
   root "static_pages#home"
 end
