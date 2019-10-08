@@ -68,21 +68,13 @@ class RequestsController < ApplicationController
 
   #GET view held books
   def view_hold
-    @current_user = current_user
-    @hold_requests = Request.get_all_holds_for_lib(@current_user.library_id)
+    @hold_requests = Request.get_all_holds_for_lib(current_user)
   end
 
   # GET get all requests made by the user
   def manage_req
     @user_book_reqs = Request.where({ user_id: current_user.id })
   end
-
-  # GET get all requests made by particular user
-  # def manage_student_req(user_id)
-  #   if current_user.admin?
-  #     @user_book_reqs = Request.where({ user_id: user_id })
-  #   end
-  # end
 
   # GET all pending special approvals on the books in the library
   def spl_book_aprvl

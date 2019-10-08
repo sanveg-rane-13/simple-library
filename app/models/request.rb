@@ -12,28 +12,28 @@ class Request < ApplicationRecord
 
     if book.is_special?
       # wait for librarian to approve special book
-      return Request.new({library_id: lib_book.library_id,
-                          user_id: user_id,
-                          book_id: lib_book.book_id,
-                          special_approval: true})
+      return Request.new({ library_id: lib_book.library_id,
+                           user_id: user_id,
+                           book_id: lib_book.book_id,
+                           special_approval: true })
     else
       # reduce count in library if book checked out
       lib_book.reduce_count
-      return Request.new({library_id: lib_book.library_id,
+      return Request.new({ library_id: lib_book.library_id,
                           user_id: user_id,
                           book_id: lib_book.book_id,
                           special_approval: false,
-                          start: Time.now})
+                          start: Time.now })
     end
   end
 
   # get the request object to delete on return
   # NOTE: persist the lib_book object as well
   def self.get_return_request_obj(lib_book, user_id)
-    request = Request.where({library_id: lib_book.library_id,
+    request = Request.where({ library_id: lib_book.library_id,
                              user_id: user_id,
-                             book_id: lib_book.book_id})
-                  .where(end: nil).where.not(start: nil).first
+                             book_id: lib_book.book_id })
+      .where(end: nil).where.not(start: nil).first
     if !request.nil?
       lib_book.increase_count
       request.end = Time.now
@@ -44,78 +44,84 @@ class Request < ApplicationRecord
 
   # get the request object to put on hold
   def self.new_hold_request_object(lib_book, user_id)
-    return Request.new({library_id: lib_book.library_id,
+    return Request.new({ library_id: lib_book.library_id,
                         user_id: user_id,
                         book_id: lib_book.book_id,
-                        hold: Time.now})
+                        hold: Time.now })
   end
 
   # get the request object to delete a hold request
   def self.new_cancel_hold_request_object(lib_book, user_id)
-    return Request.where({library_id: lib_book.library_id,
+    return Request.where({ library_id: lib_book.library_id,
                           user_id: user_id,
-                          book_id: lib_book.book_id}).where.not(hold: nil).first
+                          book_id: lib_book.book_id }).where.not(hold: nil).first
   end
 
   # ========= Methods check existing Requests ===========
 
   # check if current user has checked out the same book from same library
   def self.is_checked_out(lib_book, user_id)
-    request = Request.where({user_id: user_id,
+    request = Request.where({ user_id: user_id,
                              library_id: lib_book.library_id,
-                             book_id: lib_book.book_id}).where({end: nil, special_approval: false}).where.not(start: nil)
+                             book_id: lib_book.book_id }).where({ end: nil, special_approval: false }).where.not(start: nil)
 
     return !request.empty?
   end
 
   # check if the current user has hold on the same book from same library
   def self.is_on_hold(lib_book, user_id)
-    request = Request.where({user_id: user_id,
+    request = Request.where({ user_id: user_id,
                              library_id: lib_book.library_id,
-                             book_id: lib_book.book_id}).where.not(hold: nil)
+                             book_id: lib_book.book_id }).where.not(hold: nil)
     return !request.empty?
   end
 
   # check if the book is bookmarked by the user
   def self.is_bookmarked(lib_book, user_id)
-    request = Request.where({user_id: user_id,
+    request = Request.where({ user_id: user_id,
                              library_id: lib_book.library_id,
-                             book_id: lib_book.book_id}).where(bookmark: true)
+                             book_id: lib_book.book_id }).where(bookmark: true)
     return !request.empty?
   end
 
   def self.is_special_approval_pending(lib_book, user_id)
-    request = Request.where({user_id: user_id,
+    request = Request.where({ user_id: user_id,
                              library_id: lib_book.library_id,
-                             book_id: lib_book.book_id}).where(special_approval: true)
+                             book_id: lib_book.book_id }).where(special_approval: true)
     return !request.empty?
   end
 
   # get the hold count for particular book
   def self.get_hold_count(lib_book)
-    return Request.where({library_id: lib_book.library_id,
-                          book_id: lib_book.book_id})
-               .where.not(hold: nil).count
+    return Request.where({ library_id: lib_book.library_id,
+                          book_id: lib_book.book_id })
+             .where.not(hold: nil).count
   end
 
   def self.get_special_approvals_from_lib(library_id)
-    return Request.where({library_id: library_id, special_approval: true})
+    return Request.where({ library_id: library_id, special_approval: true })
   end
 
   # get particular request object
   def self.get_request(lib_book, user_id)
-    return Request.where({user_id: user_id,
+    return Request.where({ user_id: user_id,
                           library_id: lib_book.library_id,
-                          book_id: lib_book.book_id}).first
+                          book_id: lib_book.book_id }).first
   end
 
-  def self.get_all_holds_for_lib(library_id)
-    return Request.where(library_id: library_id).where.not(hold: nil)
+  # return list of all hold requests as per user level
+  def self.get_all_holds_for_lib(user)
+    hold_reqs = []
+    if (user.admin?)
+      hold_reqs = Request.where.not(hold: nil)
+    elsif (user.librarian?)
+      hold_reqs = Request.where(library_id: user.library_id).where.not(hold: nil)
+    end
+    return hold_reqs
   end
-
 
   def self.get_borrow_history_lib(current_user)
-    return Request.where({library_id: current_user.library_id})
+    return Request.where({ library_id: current_user.library_id })
   end
 
   def self.get_student_overdue_fine(current_user)
@@ -133,19 +139,19 @@ class Request < ApplicationRecord
         student_fines[request.user_id] = request.get_late_fee
       end
     end
-    
+
     return student_fines
   end
 
   def self.get_first_hold_user(lib_book)
     return Request.where(library_id: lib_book.library_id, book_id: lib_book.book_id)
-               .where.not(hold: nil)
-               .order(:hold).first
+             .where.not(hold: nil)
+             .order(:hold).first
   end
 
   # return all checked out requests of the user
   def self.get_all_checked_out(user_id)
-    requests = Request.where({user_id: user_id}).where({end: nil, special_approval: false}).where.not(start: nil)
+    requests = Request.where({ user_id: user_id }).where({ end: nil, special_approval: false }).where.not(start: nil)
     return requests
   end
 
@@ -158,14 +164,13 @@ class Request < ApplicationRecord
       return start_date.to_date.strftime("%b-%d-%Y")
     end
   end
-  
+
   def book_returned_date
     end_date = self[:end]
     if !end_date.nil?
       return end_date.to_date.strftime("%b-%d-%Y")
     end
   end
-  
 
   # get the string value of last date to return a book
   def book_return_date
@@ -207,9 +212,9 @@ class Request < ApplicationRecord
     # if book is checked out
     if (!self[:start].nil? && self[:end].nil?)
       return message.concat("Checked out on ")
-                 .concat(self[:start].to_date.strftime("%b-%d-%Y"))
-                 .concat(" - Return Date: ")
-                 .concat(self.book_return_date)
+               .concat(self[:start].to_date.strftime("%b-%d-%Y"))
+               .concat(" - Return Date: ")
+               .concat(self.book_return_date)
     end
 
     # if book is pending special approval
@@ -230,9 +235,9 @@ class Request < ApplicationRecord
     book = Book.find(self[:book_id])
 
     if book.is_special?
-      self.update({hold: nil, special_approval: true})
+      self.update({ hold: nil, special_approval: true })
     else
-      if self.update({hold: nil, start: Time.now, special_approval: false})
+      if self.update({ hold: nil, start: Time.now, special_approval: false })
         lib_book.reduce_count
       end
     end
