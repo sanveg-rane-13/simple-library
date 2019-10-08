@@ -1,51 +1,63 @@
-<p>
-  <strong>Isbn:</strong>
-  <%= @book.isbn %>
-</p>
+<h3><%= @book.title%></h3>
+<hr>
+<br><br>
 
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
+<div class="container-fluid">
+  <div class="book-summ col-md-5">
+    <div class="card img-details">
+      <%if !@book.Image.blank?%>
+      <%= image_tag(url_for(@book.Image), :size => "450x250") %>
+      <%end%>
+    </div>
+    <div class="card summary-details">
+      <p><%=@book.summary%></p>
+    </div>
+    <% if @message %><div class="card summary-details">
+      <p><%= raw @message%></p>
+    </div><% end %>
 
-<p>
-  <strong>Author:</strong>
-  <%= @book.author %>
-</p>
+    <div class="book-actions">
+      <br>
+      <%= link_to 'Back', :back%> |
+      <%= link_to 'Home', "/" %>
+    </div>
 
-<p>
-  <strong>Subject:</strong>
-  <%= @book.subject %>
-</p>
+  </div>
 
-<p>
-  <strong>Is special:</strong>
-  <%= @book.is_special %>
-</p>
 
-<p>
-  <strong>Summary:</strong>
-  <%= @book.summary %>
-</p>
-
-<p>
-  <strong>Image front cover:</strong>
-  <%= @book.image_front_cover %>
-</p>
-
-<p>
-  <strong>Edition:</strong>
-  <%= @book.edition %>
-</p>
-
-<p>
-  <strong>Published:</strong>
-  <%= @book.published %>
-</p>
-
-<p>
-  <strong>Language:</strong>
-  <%= @book.language %>
-</p>
-
-<!-- <> -->
+  <div class="card book-details col-md-5">
+    <h5>Book Details:</h5>
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <th>Name:</th>
+          <td><%= @book.title%></td>
+        </tr>
+        <tr>
+          <th>ISBN:</th>
+          <td><%= @book.isbn%></td>
+        </tr>
+        <tr>
+          <th>Subject:</th>
+          <td><%= @book.subject%></td>
+        </tr>
+        <tr>
+          <th>Author:</th>
+          <td><%= @book.author%></td>
+        </tr>
+        <tr>
+          <th>Edition:</th>
+          <td><%= @book.edition%></td>
+        </tr>
+        <tr>
+          <th>Language:</th>
+          <td><%= @book.language%></td>
+        </tr>
+        <tr>
+          <th>Is Special:</th>
+          <td><%= @book.is_special ? "Yes" : "No"%></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
