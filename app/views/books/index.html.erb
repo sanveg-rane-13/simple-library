@@ -1,38 +1,4 @@
 <h3>Books</h3>
-
-<br><br>
-
-<div class="row">
-    <div class="col-sm-1"></div>
-
-</div>
-
-<div class="card">
-    <div class="container">
-
-        <%= form_tag books_path, method: 'get', :class => "col-sm-11" do %>
-        <input type='hidden' name='search' value='true'>
-
-        <div class="col-sm-3">
-            <input type='string' class="form-control" placeholder="Title" name='title' value="<%= params[:title]%>">
-        </div>
-
-        <div class="col-sm-3">
-            <input type='string' class="form-control" placeholder="Author" name='author' value="<%=params[:author]%>">
-        </div>
-
-        <div class="col-sm-3">
-            <input type='date' class="form-control" placeholder="Published" name='published'
-                value="<%=params[:published]%>">
-        </div>
-
-        <div class="col-sm-3">
-            <button class="btn btn-primary">Search</button>
-        </div>
-        <% end %>
-    </div>
-</div>
-
 <br><br>
 
 <table class="table">
@@ -72,9 +38,9 @@
             <td><%= book.language %></td>
             <% if not @current_user.student? %>
 
-            <td><%= link_to 'Show', show_lib_book_contain_path(book) %></td>
+            <td><%= link_to 'Show', book_path(book) %></td>
             <!--   -->
-            
+
             <td><%= link_to 'Edit', edit_book_path(book) %></td>
             <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>

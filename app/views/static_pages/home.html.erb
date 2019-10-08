@@ -1,7 +1,7 @@
 <h2>Welcome to Simple-Library</h2>
 
 <% if !@current_user %>
-
+<p>Please Login to continue</p>
 <% end %>
 
 <% if @current_user.student? %>
@@ -31,23 +31,28 @@
 
 <% else %>
 <p>Welcome <%= @current_user.name%>, please select an action to continue</p>
+<br>
+
+<p class="label-info">Browse</p>
 <ul class="list-group">
     <!-- View Books (edit / remove on book view)-->
     <li class="list-group-item">View all books</li>
-    <!-- Add Books -->
-    <li class="list-group-item"><%= link_to 'Add Books', '/books/new' %></li>
-    <!-- Add Book to Library -->
-    <li class="list-group-item"><%= link_to 'Add Book to Library', new_contain_path %></li>
     <!-- View Borrow History -->
     <li class="list-group-item"><%= link_to 'View Borrow History', view_borrow_history_path %></li>
     <!-- View overdue students and fines -->
     <li class="list-group-item"><%= link_to 'View Overdue Students and Fine', view_overdue_fine_path %></li>
     <!-- View Hold requests-->
     <li class="list-group-item"><%= link_to 'View Hold Requests', view_hold_path %></li>
-    <!-- Add Book to Library -->
-    <li class="list-group-item"><%= link_to 'Add Book to Library', new_contain_path %></li>
+</ul>
+<br>
+<p class="label-info">Actions</p>
+<ul class="list-group">
     <!-- List of user requests pending approval -->
     <li class="list-group-item"><%= link_to 'Approve Special Requests', spl_book_aprvl_path %></li>
+    <!-- Add Books -->
+    <li class="list-group-item"><%= link_to 'Add Books', '/books/new' %></li>
+    <!-- Add Book to Library -->
+    <li class="list-group-item"><%= link_to 'Add Book to Library', new_contain_path %></li>
 </ul>
 <% end %>
 
@@ -59,7 +64,7 @@
     <!-- View all libraries -->
     <li class="list-group-item"><%= link_to 'View Libraries', user_libs_path %></li>
     <!-- View all libraries -->
-    <li class="list-group-item"><%= link_to 'View Books', books_path %></li>   
+    <li class="list-group-item"><%= link_to 'View Books', books_path %></li>
     <!-- View Borrow History -->
     <li class="list-group-item"><%= link_to 'View Borrow History', view_borrow_history_path %></li>
     <!-- View overdue students and fines -->
@@ -67,7 +72,7 @@
     <!-- View all users -->
     <li class="list-group-item"><%= link_to 'View Users', view_users_path%></li>
     <!-- View hold requests of all users -->
-    <li class="list-group-item">View Holds</li>
+    <li class="list-group-item"><%= link_to 'View Hold Requests', view_hold_path %></li>
 </ul>
 <br>
 <p class="label-info">Actions</p>
