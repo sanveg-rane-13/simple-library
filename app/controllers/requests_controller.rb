@@ -126,6 +126,20 @@ class RequestsController < ApplicationController
     end
   end
 
+  def view_borrow_history
+    @current_user = current_user
+    if current_user.admin?
+      @requests = Request.all
+    elsif current_user.librarian?
+      @requests = Request.get_borrow_history_lib(current_user)
+    end
+  end
+
+  def view_overdue_fine
+    @current_user = current_user
+    @objects = Request.get_student_overdue_fine(current_user)
+  end
+  
   # GET show list of all users to librarian
   def view_users
     @current_user = current_user
@@ -153,6 +167,7 @@ class RequestsController < ApplicationController
     end
   end
 
+  
   # Never trust parameters from the scary internet, only allow the white list through.
   def request_params
     params.fetch(:request, {})

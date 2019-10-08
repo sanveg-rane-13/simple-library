@@ -1,0 +1,27 @@
+<h3>Students with Overdue Fine</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>University</th>
+      <th>Fine</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @objects.each do |student_id, fine| %>
+    <tr>
+      <% student = User.find(student_id) %>
+      <td><%=student.name%></td>
+      <td><%=student.university%></td>
+      <td><%=fine%></td
+
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
