@@ -21,7 +21,9 @@
             <td><%= student.university %></td>
             <td><%= student.study_level %></td>
             <% if @current_user.admin? %>
-            <td>Delete Student</td>
+
+            <td><%= link_to "Delete Student", admin_destroy_user_path(student), method: :delete, data: { confirm: "Are you sure you want to delete this student?" } %>
+            </td>
             <% end %>
         </tr>
         <% end %>
@@ -47,7 +49,8 @@
             <td><%= Library.get_lib_name(librarian.library_id) %></td>
 
             <% if @current_user.admin? %>
-            <td>Delete Librarian</td>
+            <td><%= link_to "Delete Librarian", admin_destroy_user_path(librarian), method: :delete, data: { confirm: "Are you sure you want to delete this librarian?" } %>
+            </td>
             <% end %>
         </tr>
         <% end %>
