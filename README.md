@@ -15,12 +15,18 @@ A Library management system for students to borrow books.
 ##### Admin details:
   - Admin : admin@simple-lib.com
   - Pass  : admin1
+  
+  - Login and Click on top-right button (displaying Admin name) to edit admin name
 
 ### Web Application can be viewed in 3 roles:
 1. Admin
 2. Student
 3. Librarian
 
+#### Register / Login
+- Click on signup and Register as Librarian or Student
+- Librarian must be approved by admin and must select a library
+- Student must select Education level and University
 
 ### Admin:
 
@@ -91,8 +97,11 @@ A Library management system for students to borrow books.
 <hr>
 
 ##### Run project in local:
-  - Clone the repo
-  - cd into simple-library
-  - run command - bundle install
-  - run command - rake db:migrate
-  - run command - rails s
+Ensure Ruby and Rails are installed in system
+  ```bash
+  git clone Repo_URL
+  cd simple-library
+  bundle install
+  rake db:migrate
+  rails s
+  ```
