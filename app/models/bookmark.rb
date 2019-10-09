@@ -35,4 +35,8 @@ class Bookmark < ApplicationRecord
   def self.delete_all_bookmarks(lib_book)
     Bookmark.where({ library_id: lib_book.library_id, book_id: lib_book.book_id }).destroy_all
   end
+
+  def self.delete_all_user_bookmarks(user_id)
+    Bookmark.where({ user_id: user_id }).destroy_all
+  end
 end

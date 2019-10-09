@@ -120,10 +120,11 @@ class RequestsController < ApplicationController
 
   def view_borrow_history
     @current_user = current_user
+    @requests = []
     if current_user.admin?
       @requests = Request.all
     elsif current_user.librarian?
-      @requests = Request.get_borrow_history_lib(current_user)
+      @requests = Request.get_borrow_history_lib(@current_user.library_id)
     end
   end
 
@@ -131,7 +132,7 @@ class RequestsController < ApplicationController
     @current_user = current_user
     @objects = Request.get_student_overdue_fine(current_user)
   end
-  
+
   # GET - View all checked out books
   def view_checked_out_books
     @current_user = current_user

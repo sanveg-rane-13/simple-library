@@ -28,9 +28,12 @@ class LibrariesController < ApplicationController
     @library = Library.new(library_params)
 
     respond_to do |format|
-      if @library.save
+      if !current_user.student? && @library.save
         format.html { redirect_to @library, notice: "Library was successfully created." }
         format.json { render :show, status: :created, location: @library }
+      elsif current_user.student?
+        format.html { redirect_to "/", alert: "Students cannot add new libraries!" }
+        format.json { render json: @library.errors, status: :unprocessable_entity }
       else
         format.html { render :new }
         format.json { render json: @library.errors, status: :unprocessable_entity }
@@ -42,9 +45,12 @@ class LibrariesController < ApplicationController
   # PATCH/PUT /libraries/1.json
   def update
     respond_to do |format|
-      if @library.update(library_params)
+      if !current_user.student? && @library.update(library_params)
         format.html { redirect_to @library, notice: "Library was successfully updated." }
         format.json { render :show, status: :ok, location: @library }
+      elsif current_user.student?
+        format.html { redirect_to "/", alert: "Students cannot add edit libraries!" }
+        format.json { render json: @library.errors, status: :unprocessable_entity }
       else
         format.html { render :edit }
         format.json { render json: @library.errors, status: :unprocessable_entity }
@@ -59,9 +65,12 @@ class LibrariesController < ApplicationController
     librarians = User.where(library_id: @library.id)
 
     respond_to do |format|
-      if Request.where(library_id: @library.id).each { |r| r.destroy } && librarians.update(library_id: nil, library: nil) && @library.destroy
+      if !current_user.student? && Request.where(library_id: @library.id).each { |r| r.destroy } && librarians.update(library_id: nil, library: nil) && @library.destroy
         format.html { redirect_to libraries_url, notice: "Library was successfully destroyed." }
         format.json { head :no_content }
+      elsif !current_user.student?
+        format.html { redirect_to "/", notice: "Students cannot delete libraries." }
+        format.json { render json: @library.errors, status: :unprocessable_entity }
       else
         format.html { redirect_to @library, alert: "Error deleting library" }
         format.json { render json: @library.errors, status: :unprocessable_entity }
