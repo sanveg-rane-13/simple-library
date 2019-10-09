@@ -161,7 +161,7 @@ class Request < ApplicationRecord
     if current_user.admin?
       student_ids = Request.select(:user_id)
     elsif current_user.librarian?
-      student_ids = Request.select(:user_id).where({ library_id: current_user.library_id }) 
+      student_ids = Request.select(:user_id).where({ library_id: current_user.library_id })
     end
 
     student_ids.each do |student|
@@ -170,8 +170,13 @@ class Request < ApplicationRecord
         map[student.user_id] = requests
       end
     end
-    
+
     return map
+  end
+
+  # delete all requests made on a book in a library
+  def self.delete_all_requests(lib_book)
+    Request.where({ library_id: lib_book.library_id, book_id: lib_book.book_id }).destroy_all
   end
 
   # ========= Instance methods ===========

@@ -56,10 +56,17 @@ class ContainsController < ApplicationController
   # DELETE /contains/1.json
   def destroy
     lib_id = @contain.library_id
-    @contain.destroy
+
     respond_to do |format|
-      format.html { redirect_to lib_books_library_path(lib_id), notice: "Book was successfully removed from library." }
-      format.json { head :no_content }
+      if (current_user.librarian? && current_user.library_id == lib_id) || current_user.admin?
+        if Bookmark.delete_all_bookmarks(@contain) && Request.delete_all_requests(@contain) && @contain.destroy
+          format.html { redirect_to lib_books_library_path(lib_id), notice: "Book was successfully removed from library." }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to lib_books_library_path(lib_id), alert: "Error removing book from library" }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      end
     end
   end
 

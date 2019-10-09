@@ -20,6 +20,9 @@
 
             <% if not current_user.student? %>
             <td><%= link_to 'Edit Count', edit_contain_path(contains) %></td>
+            <td></td>
+            <td><%= link_to 'Remove from library', contain_path(contains), method: :delete, data: { confirm: "Do you want to remove this book from the library?" } %>
+            </td>
             <% end %>
 
         </tr>
