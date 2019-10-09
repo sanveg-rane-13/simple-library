@@ -45,7 +45,7 @@ A Library management system for students to borrow books.
 4.	Admin can also edit his profile but will not be able to delete the account.
 5.	Admin can logout using Logout option given in top-right corner.
 
-
+<hr>
 
 ### Librarian:
 
@@ -56,14 +56,15 @@ A Library management system for students to borrow books.
   	- Librarian can approve or deny requests special books.
   	- Librarian can view hold requests on books by students. 
 
-
+<hr>
 
 ### Student:
 
 1. 	A Student can login using his/her email id and password.
 2.	After login, Student can perform the following operations from the homepage:
 
-        **Search Books** - Student can filter books according to the filters he/she will set.
+
+	**Search Books** - Student can filter books according to the filters he/she will set.
 	
 	**View Libraries** - All libraries associated with student's university will be displayed. Students can check all books in a library which they can checkout or hold.
 	
@@ -85,7 +86,7 @@ A Library management system for students to borrow books.
 5.	Students can edit profile using the button given on top right corner.
 6.	They can also delete their profile.
 
-
+<hr>
 
 ##### Run project in local:
   - Clone the repo
