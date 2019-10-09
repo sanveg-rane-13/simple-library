@@ -1,7 +1,7 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:approve_spl, :decline_spl]
   before_action :check_librarian, only: [:approve_spl, :decline_spl]
-  before_action :set_lib_book, only: [:check_out_book, :return_book, :hold_book, :rem_hold_book]
+  before_action :set_lib_book, only: [:check_out_book, :return_book, :hold_book, :rem_hold_book, :bookmark, :remove_bookmark]
 
   # POST - Checkout request on book
   def check_out_book
@@ -68,21 +68,13 @@ class RequestsController < ApplicationController
 
   #GET view held books
   def view_hold
-    @current_user = current_user
-    @hold_requests = Request.get_all_holds_for_lib(@current_user.library_id)
+    @hold_requests = Request.get_all_holds_for_lib(current_user)
   end
 
   # GET get all requests made by the user
   def manage_req
     @user_book_reqs = Request.where({ user_id: current_user.id })
   end
-
-  # GET get all requests made by particular user
-  # def manage_student_req(user_id)
-  #   if current_user.admin?
-  #     @user_book_reqs = Request.where({ user_id: user_id })
-  #   end
-  # end
 
   # GET all pending special approvals on the books in the library
   def spl_book_aprvl
@@ -140,6 +132,7 @@ class RequestsController < ApplicationController
     @objects = Request.get_student_overdue_fine(current_user)
   end
   
+  # GET - View all checked out books
   def view_checked_out_books
     @current_user = current_user
     @objects = Request.get_users_with_checked_out_books(current_user)
@@ -155,6 +148,39 @@ class RequestsController < ApplicationController
     end
   end
 
+  # POST - add a book mark to particular lib book
+  def bookmark
+    bookmark = Bookmark.new_bookmark(@lib_book, current_user.id)
+
+    respond_to do |format|
+      if bookmark.save
+        format.html { redirect_to show_lib_book_contain_path(@lib_book), notice: "Book Bookmarked!" }
+        format.json { render :show, status: :created, location: @request }
+      else
+        format.html { redirect_to show_lib_book_contain_path(@lib_book), alert: "Error bookmarking" }
+        format.json { render json: @request.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST - remove book mark from particular lib book
+  def remove_bookmark
+    bookmark = Bookmark.get_bookmark(@lib_book, current_user.id)
+
+    bookmark.destroy
+    respond_to do |format|
+      format.html { redirect_to show_lib_book_contain_path(@lib_book), notice: "Bookmark removed!" }
+      format.json { head :no_content }
+    end
+  end
+
+  # GET view all the books bookmarked by the user
+  def view_bookmarks
+    @current_user = current_user
+    @bookmarks = Bookmark.get_all_bookmarks(current_user.id)
+  end
+
+  # ====== Private methods =======
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -172,7 +198,6 @@ class RequestsController < ApplicationController
     end
   end
 
-  
   # Never trust parameters from the scary internet, only allow the white list through.
   def request_params
     params.fetch(:request, {})

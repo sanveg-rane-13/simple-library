@@ -84,8 +84,8 @@ class ContainsController < ApplicationController
       @show_cancel_hold = Request.is_on_hold(@contain, current_user.id)
       @approval_pending = Request.is_special_approval_pending(@contain, current_user.id)
 
-      # book mark book TODO: add bookmark feature
-      # @bookmark = Request.is_bookmarked(@contain, current_user.id)
+      # check if the user has bookmarked the book
+      @bookmark = Bookmark.is_bookmarked(@contain, current_user.id)
 
       # show return date if book is checked out
       if @show_return

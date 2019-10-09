@@ -1,25 +1,32 @@
 <h2>Welcome to Simple-Library</h2>
 
 <% if !@current_user %>
-
+<p>Please Login to continue</p>
 <% end %>
 
+
+<!-- ===== Student Features ===== -->
 <% if @current_user.student? %>
+
+<% if @current_user.university == nil%>
+<p> Please Register Your University in <%= link_to 'Edit Profile', '/users/edit' %></p>
+<% else %>
+<p>Welcome <%= @current_user.name%>, please select an action to continue</p>
 <ul class="list-group">
-    <% if @current_user.university == nil%>
-    <p> Please Register Your University in <%= link_to 'Edit Profile', '/users/edit' %></p>
-    <% else %>
-    <p>Welcome <%= @current_user.name%>, please select an action to continue</p>
+    <!-- Search books -->
+    <li class="list-group-item"><%= link_to 'Search Books', contains_path %></li>
     <!-- List of libraries -->
     <li class="list-group-item"><%= link_to 'View Libraries', user_libs_path %></li>
     <!-- List of books requested -->
     <li class="list-group-item"><%= link_to 'View Book Requests', manage_req_path %></li>
-    <!-- Search books -->
-    <li class="list-group-item"><%= link_to 'Search Books', '/contains' %></li>
+    <!-- View Bookmarked books-->
+    <li class="list-group-item"><%= link_to 'Bookmarked Books', view_bookmarks_path %></li>
     <% end %>
 </ul>
 <% end %>
 
+
+<!-- ===== Librarian Features ===== -->
 <% if @current_user.librarian? %>
 
 <% if @current_user.library_id == nil %>
@@ -31,13 +38,12 @@
 
 <% else %>
 <p>Welcome <%= @current_user.name%>, please select an action to continue</p>
+<br>
+
+<p class="label-info">Browse</p>
 <ul class="list-group">
     <!-- View Books (edit / remove on book view)-->
     <li class="list-group-item">View all books</li>
-    <!-- Add Books -->
-    <li class="list-group-item"><%= link_to 'Add Books', '/books/new' %></li>
-    <!-- Add Book to Library -->
-    <li class="list-group-item"><%= link_to 'Add Book to Library', new_contain_path %></li>
     <!-- View Borrow History -->
     <li class="list-group-item"><%= link_to 'View Borrow History', view_borrow_history_path %></li>
     <!-- View overdue students and fines -->
@@ -46,22 +52,30 @@
     <li class="list-group-item"><%= link_to 'View Checked Out Books', view_checked_out_books_path %></li>
     <!-- View Hold requests-->
     <li class="list-group-item"><%= link_to 'View Hold Requests', view_hold_path %></li>
-    <!-- Add Book to Library -->
-    <li class="list-group-item"><%= link_to 'Add Book to Library', new_contain_path %></li>
+</ul>
+<br>
+<p class="label-info">Actions</p>
+<ul class="list-group">
     <!-- List of user requests pending approval -->
     <li class="list-group-item"><%= link_to 'Approve Special Requests', spl_book_aprvl_path %></li>
+    <!-- Add Books -->
+    <li class="list-group-item"><%= link_to 'Add Books', '/books/new' %></li>
+    <!-- Add Book to Library -->
+    <li class="list-group-item"><%= link_to 'Add Book to Library', new_contain_path %></li>
 </ul>
 <% end %>
 
 <% end %>
 
+
+<!-- ===== Admin Features ===== -->
 <% if @current_user.admin? %>
 <p class="label-info">Browse</p>
 <ul class="list-group">
     <!-- View all libraries -->
     <li class="list-group-item"><%= link_to 'View Libraries', user_libs_path %></li>
     <!-- View all libraries -->
-    <li class="list-group-item"><%= link_to 'View Books', books_path %></li>   
+    <li class="list-group-item"><%= link_to 'View Books', books_path %></li>
     <!-- View Borrow History -->
     <li class="list-group-item"><%= link_to 'View Borrow History', view_borrow_history_path %></li>
     <!-- View overdue students and fines -->

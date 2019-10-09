@@ -1,5 +1,6 @@
 <h3>Hold Requests</h3>
 
+<% if !(@hold_requests.empty?) %>
 <table class="table">
   <thead>
     <tr>
@@ -10,18 +11,18 @@
   </thead>
 
   <tbody>
-    <% if @hold_requests != nil %>
     <% @hold_requests.each do |req| %>
     <tr>
       <td><%=User.find(req.user_id).name%></td>
       <td><%=Book.find(req.book_id).title%></td>
     </tr>
     <% end %>
-    <% else %>
-    no hold requests
-    <% end %>
   </tbody>
 </table>
+<% else %>
+<br>
+<p>No Hold requests</p>
+<% end %>
 
 <br>
 
