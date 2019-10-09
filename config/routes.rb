@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get "static_pages/home"
   get "static_pages/help"
 
-  devise_for :users, controllers: { registrations: "registrations" }
+  devise_for :users, controllers: { registrations: "registrations", omniauth_callbacks: 'users/omniauth_callbacks' }
   get "users/new"
   # scope "admin" do
   #   delete "users/:id", to: "users#destroy"

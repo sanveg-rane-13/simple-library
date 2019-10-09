@@ -73,4 +73,4 @@ gem 'jquery-rails'
 
 # Deployment dependencies
 gem 'aws-sdk-s3', require: false
-
+gem 'omniauth-google-oauth2'

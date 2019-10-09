@@ -12,8 +12,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
   def on_destroy
     # Prevent deletion of admin
     throw :abort if admin
@@ -23,6 +23,11 @@ class User < ApplicationRecord
     requests.each { |request| request.update_count_before_delete }
   end
 
+  def self.from_omniauth(access_token)
+    data = access_token.info
+    User.where(email: data['email']).first
+  end
+  
   # get pending approvals list
   def self.get_pending_approvals_list
     User.where({ pending_approval: true })
