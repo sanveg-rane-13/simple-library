@@ -82,6 +82,8 @@ A Library management system for students to borrow books.
 		- If book is marked special - request is raised for librarian to approve
 		- On approval book is added to user's checked out books
 	- The book will appear in "View Book Requests" option on student's home
+	
+	- <b>Special book</b>: if book is marked special, a request will be raised to the librarian of the university; on approval of which, the book will get added to user's checked out list.
 4.	Students can view status of the books checked out/ hold/ returned in "View Book Requests"		
 5.	Students can edit profile using the button given on top right corner.
 6.	They can also delete their profile.
