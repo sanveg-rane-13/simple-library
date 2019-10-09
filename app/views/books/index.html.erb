@@ -9,38 +9,24 @@
             <th>Subject</th>
             <th>ISBN</th>
             <th>Special</th>
-            <th>Summary</th>
-            <th>Edition</th>
-            <th>Publised</th>
             <th>Language</th>
-
-            <% if current_user.librarian? %>
-            <th><strong>Students</strong></th>
-            <th>Control</th>
-            <% end %>
-
-            <% if current_user.student? %>
-            <th></th>
-            <% end %>
+            <th colspan="5"></th>
         </tr>
     </thead>
     <tbody>
         <% @books.each do |book| %>
         <tr>
-            <td><%= link_to book.title, book_path(book) %></td>
+            <td><%= book.title %></td>
             <td><%= book.author %></td>
             <td><%= book.subject %></td>
             <td><%= book.isbn %></td>
-            <td><%= book.is_special %></td>
-            <td><%= book.summary %></td>
-            <td><%= book.edition %></td>
-            <td><%= book.published %></td>
+            <td><%= book.is_special? ? "Yes" : "No" %></td>
             <td><%= book.language %></td>
+
             <% if not @current_user.student? %>
-
             <td><%= link_to 'Show', book_path(book) %></td>
-            <!--   -->
-
+            <%end%>
+            <%if @current_user.admin?%>
             <td><%= link_to 'Edit', edit_book_path(book) %></td>
             <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>

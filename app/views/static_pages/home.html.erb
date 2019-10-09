@@ -42,8 +42,12 @@
 
 <p class="label-info">Browse</p>
 <ul class="list-group">
-    <!-- View Books (edit / remove on book view)-->
-    <li class="list-group-item">View all books</li>
+    <!-- View All books in the system-->
+    <li class="list-group-item"><%= link_to 'View Books', books_path %></li>
+    <!-- View Books in library and edit count / delete-->
+    <li class="list-group-item">
+        <%= link_to 'View Books in My Library', lib_books_library_path(Library.find(@current_user.library_id))%>
+    </li>
     <!-- View Borrow History -->
     <li class="list-group-item"><%= link_to 'View Borrow History', view_borrow_history_path %></li>
     <!-- View overdue students and fines -->
@@ -76,16 +80,17 @@
     <li class="list-group-item"><%= link_to 'View Libraries', user_libs_path %></li>
     <!-- View all libraries -->
     <li class="list-group-item"><%= link_to 'View Books', books_path %></li>
-    <!-- View Borrow History -->
-    <li class="list-group-item"><%= link_to 'View Borrow History', view_borrow_history_path %></li>
-    <!-- View overdue students and fines -->
-    <li class="list-group-item"><%= link_to 'View Overdue Students and Fine', view_overdue_fine_path %></li>
     <!-- View all users -->
-    <li class="list-group-item"><%= link_to 'View Users', view_users_path%></li>
-    <!-- View hold requests of all users -->
-    <li class="list-group-item"><%= link_to 'View Hold Requests', view_hold_path %></li>
+    <li class="list-group-item"><%= link_to 'View All Users', view_users_path%></li>
     <!-- View checked out books -->
     <li class="list-group-item"><%= link_to 'View Checked Out Books', view_checked_out_books_path %></li>
+    <!-- View overdue students and fines -->
+    <li class="list-group-item"><%= link_to 'View Overdue Students and Fine', view_overdue_fine_path %></li>
+    <!-- View Borrow History -->
+    <li class="list-group-item"><%= link_to 'View Borrow History', view_borrow_history_path %></li>
+    <!-- View hold requests of all users -->
+    <li class="list-group-item"><%= link_to 'View Hold Requests', view_hold_path %></li>
+
 </ul>
 <br>
 <p class="label-info">Actions</p>

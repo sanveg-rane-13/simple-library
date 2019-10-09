@@ -4,14 +4,10 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
     @current_user = current_user
-    if params[:search].blank?
+    @books = []
+    if !@current_user.student?
       @books = Book.all
-    else
-      @books = Book.where(["title LIKE ?", "%#{params[:title]}%"])
-        .where(["author LIKE ?", "%#{params[:author]}%"])
-        .where(["published LIKE ?", "%#{params[:published]}%"])
     end
   end
 
@@ -35,11 +31,14 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     @book.Image.attach(params[:book][:Image])
     respond_to do |format|
-      if @book.save
+      if !current_user.student? && @book.save
         format.html { redirect_to @book, notice: "Book was successfully created." }
         format.json { render :show, status: :created, location: @book }
+      elsif current_user.student?
+        format.html { redirect_to "/", alert: "Student cannot add new books!" }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
       else
-        format.html { render :new }
+        format.html { redirect_to @book, alert: "Error Creating book." }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
@@ -51,9 +50,12 @@ class BooksController < ApplicationController
     @book.Image.purge
     @book.Image.attach(params[:book][:Image])
     respond_to do |format|
-      if @book.update(book_params)
+      if !current_user.student? && @book.update(book_params)
         format.html { redirect_to @book, notice: "Book was successfully updated." }
         format.json { render :show, status: :ok, location: @book }
+      elsif current_user.student?
+        format.html { redirect_to "/", alert: "Student cannot edit books!" }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
       else
         format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }
@@ -64,10 +66,14 @@ class BooksController < ApplicationController
   # DELETE /books/1
   # DELETE /books/1.json
   def destroy
-    @book.destroy
     respond_to do |format|
-      format.html { redirect_to books_url, notice: "Book was successfully destroyed." }
-      format.json { head :no_content }
+      if !current_user.student? && @book.destroy
+        format.html { redirect_to books_url, notice: "Book was successfully destroyed." }
+        format.json { head :no_content }
+      elsif current_user.student?
+        format.html { redirect_to "/", alert: "Student cannot delete books!" }
+        format.json { head :no_content }
+      end
     end
   end
 

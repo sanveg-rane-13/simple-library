@@ -14,10 +14,9 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "registrations", omniauth_callbacks: 'users/omniauth_callbacks' }
   get "users/new"
-  # scope "admin" do
-  #   delete "users/:id", to: "users#destroy"
-  # end
-  match "users/:id" => "users#destroy", :via => :delete, :as => :admin_destroy_user
+  scope "admin" do
+    match "users/:id" => "users#destroy", :via => :delete, :as => :admin_destroy_user
+  end
 
   resources :static_pages do
     put "approve_librarian", on: :member

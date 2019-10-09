@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:destroy]
 
   # DELETE - Delete the selected student
-  # TODO: If student then delete all requests and
   def destroy
     respond_to do |format|
       if current_user.admin?
@@ -22,5 +21,11 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def student_params
+  end
+
+  def librarian_params
   end
 end
