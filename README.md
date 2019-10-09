@@ -62,12 +62,16 @@ A Library management system for students to borrow books.
 
 1. 	A Student can login using his/her email id and password.
 2.	After login, Student can perform the following operations from the homepage:
+
+        **Search Books** - Student can filter books according to the filters he/she will set.
 	
-	**View Libraries** - All the libraries present in the DB will be viewed.
+	**View Libraries** - All libraries associated with student's university will be displayed. Students can check all books in a library which they can checkout or hold.
 	
-	**Manage Borrowed Books** - Student can manage his books.
+	**View Book Requests** - History of all book requests made by the student.
+
+	**View Bookmarks** - View all bookmarked books
 	
-	**Search Books** - Student can filter books according to the filters he/she will set.
+
 3. 	**Checkout book:** 
 	- Click on "View Libraries" to see list of all libraries associated with student's university.
 	- Click on "View Books" to see all available books in the library
@@ -78,12 +82,10 @@ A Library management system for students to borrow books.
 		- On approval book is added to user's checked out books
 	- The book will appear in "View Book Requests" option on student's home
 4.	Students can view status of the books checked out/ hold/ returned in "View Book Requests"		
-5.	Student can edit profile using the button given on top right corner.
-6.	They can also delete their profile whenever they want.
+5.	Students can edit profile using the button given on top right corner.
+6.	They can also delete their profile.
 
-#### Pending features
-- Checkout book for hold student after available with email notification
-- Show borrow history and overdue fines to librarian
+
 
 ##### Run project in local:
   - Clone the repo
