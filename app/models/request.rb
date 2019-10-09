@@ -120,8 +120,8 @@ class Request < ApplicationRecord
     return hold_reqs
   end
 
-  def self.get_borrow_history_lib(current_user)
-    return Request.where({ library_id: current_user.library_id })
+  def self.get_borrow_history_lib(library_id)
+    return Request.where({ library_id: library_id })
   end
 
   def self.get_student_overdue_fine(current_user)
