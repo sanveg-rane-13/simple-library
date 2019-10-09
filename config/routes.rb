@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   get "view_overdue_fine", to: "requests#view_overdue_fine"
   get "view_users", to: "requests#view_users"
   get "view_bookmarks", to: "requests#view_bookmarks"
+  get "view_checked_out_books", to: "requests#view_checked_out_books"
 
   resources :contains do
     member do

@@ -131,6 +131,12 @@ class RequestsController < ApplicationController
     @current_user = current_user
     @objects = Request.get_student_overdue_fine(current_user)
   end
+  
+  # GET - View all checked out books
+  def view_checked_out_books
+    @current_user = current_user
+    @objects = Request.get_users_with_checked_out_books(current_user)
+  end
 
   # GET show list of all users to librarian
   def view_users

@@ -155,6 +155,25 @@ class Request < ApplicationRecord
     return requests
   end
 
+  # get a hasmap of users and the books checked out by the user
+  def self.get_users_with_checked_out_books(current_user)
+    map = {}
+    if current_user.admin?
+      student_ids = Request.select(:user_id)
+    elsif current_user.librarian?
+      student_ids = Request.select(:user_id).where({ library_id: current_user.library_id }) 
+    end
+
+    student_ids.each do |student|
+      requests = Request.get_all_checked_out(student.user_id)
+      if requests != []
+        map[student.user_id] = requests
+      end
+    end
+    
+    return map
+  end
+
   # ========= Instance methods ===========
 
   # get the string value of borrow date of a book
