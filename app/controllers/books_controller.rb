@@ -4,14 +4,10 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
     @current_user = current_user
-    if params[:search].blank?
+    @books = []
+    if !@current_user.student?
       @books = Book.all
-    else
-      @books = Book.where(["title LIKE ?", "%#{params[:title]}%"])
-        .where(["author LIKE ?", "%#{params[:author]}%"])
-        .where(["published LIKE ?", "%#{params[:published]}%"])
     end
   end
 

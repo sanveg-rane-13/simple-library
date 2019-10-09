@@ -1,0 +1,19 @@
+<!-- Form to add new student -->
+<div class="card auth-form col-md-6">
+    <div class="container" style="padding: 2%">
+        <!-- <%= devise_error_messages! %> -->
+        <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name),
+          label_col: "col-sm-3", control_col: "col-sm-6") do |f| %>
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", :required => true %>
+        <%= f.email_field :email, autocomplete: "email", :required => true %>
+        <%= f.password_field :password, :required => true %>
+        <%= f.password_field :password_confirmation, :required => true %>
+
+        <br>
+        <%= f.primary "Sign up as Student", :id => "student_submit" %>
+        <%= f.primary "Sign up as Librarian", :id => "librarian_submit" %>
+
+        <!-- <%= f.primary "Sign up", :id => "submit" %> -->
+        <% end %>
+    </div>
+</div>
