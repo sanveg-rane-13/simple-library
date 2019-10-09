@@ -1,28 +1,27 @@
+<h3> Search Books</h3>
 
-<h1> Search Books</h1>
+<br>
 
-<br><br>
-
-<div class="row">
+<div class="row card search-form">
   <div class="col-sm-1"></div>
-  <%= form_tag '/contains', method: 'get', :class => "col-sm-11" do %>
-    <input type='hidden' name='search' value='true'>
-    <div class="col-sm-3">
-      <input type='string' class="form-control" placeholder="Title" name='title' value="<%= params[:title]%>">
-    </div>
-    <div class="col-sm-3">
-      <input type='string' class="form-control" placeholder="Author" name='author' value="<%=params[:author]%>">
-    </div>
-    <div class="col-sm-3">
-      <input type='date' class="form-control" placeholder="Published" name='published' value="<%=params[:published]%>">
-    </div>
-    <div class="col-sm-3">
-      <button class="btn btn-primary">Search</button>
-    </div>
+  <%= form_tag '/contains', method: 'get', :class => "form-inline col-sm-10" do %>
+  <input type='hidden' name='search' value='true'>
+  <div class="col-sm-3">
+    <input type='string' class="form-control" placeholder="Title" name='title' value="<%= params[:title]%>">
+  </div>
+  <div class="col-sm-3">
+    <input type='string' class="form-control" placeholder="Author" name='author' value="<%=params[:author]%>">
+  </div>
+  <div class="col-sm-3">
+    <input type='date' class="form-control" placeholder="Published" name='published' value="<%=params[:published]%>">
+  </div>
+  <div class="col-sm-3">
+    <button class="btn btn-primary">Search</button>
+  </div>
   <% end %>
 </div>
 
-<br><br>
+<br>
 
 <table class="table">
   <thead>
@@ -33,52 +32,40 @@
       <th>Subject</th>
       <th>ISBN</th>
       <th>Special</th>
-      <th>Summary</th>
-      <th>Edition</th>
-      <th>Publised</th>
-      <th>Language</th>
-      <th>Request</th>
 
       <% if current_user.librarian? %>
-        <th><strong>Students</strong></th>
-        <th>Control</th>
+      <th><strong>Students</strong></th>
+      <th>Control</th>
       <% end %>
 
       <% if current_user.student? %>
-        <th></th>
+      <th></th>
       <% end %>
     </tr>
   </thead>
   <tbody>
     <% @contains.each do |contain| %>
-        <tr>
-          <% book = Book.find(contain.book_id) %>
-          <% library = Library.find(contain.library_id) %>
-          <td><%= book.title %></td>
-          <td><%= book.author %></td>
-          <td><%= library.name %></td>
-          <td><%= book.subject %></td>
-          <td><%= book.isbn %></td>
-          <td><%= book.is_special %></td>
-          <td><%= book.summary %></td>
-          <td><%= book.edition %></td>
-          <td><%= book.published %></td>
-          <td><%= book.language %></td>
+    <tr>
+      <% book = Book.find(contain.book_id) %>
+      <% library = Library.find(contain.library_id) %>
+      <td><%= book.title %></td>
+      <td><%= book.author %></td>
+      <td><%= library.name %></td>
+      <td><%= book.subject %></td>
+      <td><%= book.isbn %></td>
+      <td><%= book.is_special? ? "Yes" : "No" %></td>
 
-          <% if @current_user.student? %>
-            <td><%= link_to 'Show Book', show_lib_book_contain_path(contain) %></td>
+      <% if @current_user.student? %>
+      <td><%= link_to 'Show Book', show_lib_book_contain_path(contain) %></td>
 
-          <% else %>
-            <td><%= link_to 'Show', contain %></td>
-            <td><%= link_to 'Edit', edit_contain_path(contain) %></td>
-          <% end %>
-        </tr>
+      <% else %>
+      <td><%= link_to 'Show', contain %></td>
+      <td><%= link_to 'Edit', edit_contain_path(contain) %></td>
+      <% end %>
+    </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
 <%= link_to 'Home', "/" %>
-
-
-

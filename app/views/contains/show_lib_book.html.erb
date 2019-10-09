@@ -5,9 +5,9 @@
 <div class="container-fluid">
     <div class="book-summ col-md-5">
         <div class="card img-details">
-        <%if !@book_accessed.Image.blank?%>
-        <%= image_tag(url_for(@book_accessed.Image), :size => "450x250") %>
-        <%end%>
+            <%if !@book_accessed.Image.blank?%>
+            <%= image_tag(url_for(@book_accessed.Image), :size => "450x250") %>
+            <%end%>
         </div>
         <div class="card summary-details">
             <p><%=@book_accessed.summary%></p>
@@ -32,15 +32,16 @@
                     <%= link_to 'Cancel Hold', rem_hold_book_requests_path(lib_book_id: @contain), method: :post%>
                 </li><%end%>
 
-                <!-- <%if !@bookmark%><li class="list-group-item btn">
-                    <%= link_to 'Bookmark', lib_books_library_path(@library_accessed)%></li>
+                <%if !@bookmark%><li class="list-group-item btn">
+                    <%= link_to 'Bookmark', bookmark_requests_path(lib_book_id: @contain), method: :post%></li>
                 <% else%><li class="list-group-item btn">
-                    <%= link_to 'Remove Bookmark', lib_books_library_path(@library_accessed)%></li>
-                <%end%> -->
+                    <%= link_to 'Remove Bookmark', remove_bookmark_requests_path(lib_book_id: @contain), method: :post%>
+                </li>
+                <%end%>
 
             </ul>
             <br>
-            <%= link_to 'Back', :back%> | 
+            <%= link_to 'Back', :back%> |
             <%= link_to 'Home', "/" %>
         </div>
 
@@ -78,6 +79,10 @@
                 <tr>
                     <th>Is Special:</th>
                     <td><%= @book_accessed.is_special ? "Yes" : "No"%></td>
+                </tr>
+                <tr>
+                    <th>Library:</th>
+                    <td><%= @library_accessed.name%></td>
                 </tr>
             </tbody>
         </table>
