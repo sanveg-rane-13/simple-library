@@ -43,7 +43,7 @@ class Contain < ApplicationRecord
     else
       books = Book.select(:id).where(["title LIKE ?", "%#{title}%"])
         .where(["author LIKE ?", "%#{author}%"])
-        .where(["published LIKE ?", "%#{published}%"])
+      # .where(["published LIKE ?", "%#{published.to_time}%"])
 
       @contains = Contain.where({ library_id: libraries }).where({ book_id: books })
     end
