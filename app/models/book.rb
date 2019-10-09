@@ -6,6 +6,8 @@ class Book < ApplicationRecord
   has_many :requests
   has_many :users, through: :requests, dependent: :destroy
 
+  validates_uniqueness_of :isbn
+
   def self.get_book(book_id)
     Book.find_by(id: book_id)
   end
