@@ -1,13 +1,16 @@
 class Book < ApplicationRecord
+  before_destroy :on_destroy
+
   has_many :contains
   has_many :libraries, through: :contains, dependent: :destroy
-  has_one_attached :Image
 
-  has_many :requests
-  has_many :users, through: :requests, dependent: :destroy
+  has_one_attached :Image
 
   has_many :bookmarks
   has_many :users, through: :bookmarks, dependent: :destroy
+
+  has_many :requests
+  has_many :users, through: :requests, dependent: :destroy
 
   validates_uniqueness_of :isbn
 
@@ -19,5 +22,8 @@ class Book < ApplicationRecord
     Book.select(:title).find_by(id: book_id)
   end
 
-  # validates :Image, attached: true, content_type: ['image/png', 'image/jpeg']
+  def on_destroy
+    # delete all bookmarks on the book
+    Bookmark.delete_all_book_bookmarks(self[:id])
+  end
 end
