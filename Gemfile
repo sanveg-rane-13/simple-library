@@ -70,7 +70,8 @@ gem 'omniauth-google-oauth2'
 gem 'bootstrap'
 gem 'bootstrap_form', '>= 4.0.0.alpha1'
 gem 'jquery-rails'
+gem 'omniauth-google-oauth2'
 
 # Deployment dependencies
 gem 'aws-sdk-s3', require: false
-
+gem 'omniauth-google-oauth2'
