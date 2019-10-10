@@ -3,17 +3,18 @@ class User < ApplicationRecord
 
   before_destroy :on_destroy, prepend: true
 
-  has_many :requests
-  has_many :books, through: :requests, dependent: :destroy
-
   has_many :bookmarks
   has_many :books, through: :bookmarks, dependent: :destroy
+
+  has_many :requests
+  has_many :books, through: :requests, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
+
   def on_destroy
     # Prevent deletion of admin
     throw :abort if admin
@@ -21,13 +22,14 @@ class User < ApplicationRecord
     # delete any checked out books by the student user
     requests = Request.get_all_checked_out(self[:id])
     requests.each { |request| request.update_count_before_delete }
+    Bookmark.delete_all_user_bookmarks(self[:id])
   end
 
   def self.from_omniauth(access_token)
     data = access_token.info
-    User.where(email: data['email']).first
+    User.where(email: data["email"]).first
   end
-  
+
   # get pending approvals list
   def self.get_pending_approvals_list
     User.where({ pending_approval: true })
