@@ -24,6 +24,7 @@ A Library management system for students to borrow books.
 3. Librarian
 
 #### Register / Login
+- To login with Google Auth, you first need to sign up with the same email id. 
 - Click on signup and Register as Librarian or Student
 - Librarian must be approved by admin and must select a library
 - Student must select Education level and University
